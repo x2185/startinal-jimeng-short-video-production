@@ -1,0 +1,4 @@
+interface:
+  display_name: "Startinal 即梦短视频生产"
+  short_description: "Plan, validate, and assemble JiMeng TikTok product videos."
+  default_prompt: "Use $startinal-jimeng-short-video-production to create and assemble a continuous JiMeng product video."
