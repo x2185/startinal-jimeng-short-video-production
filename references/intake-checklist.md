@@ -19,3 +19,9 @@ Inspect supplied images, product pages, text files, and earlier messages before 
 - No spoken claims beyond supplied facts.
 
 Ask only for missing blocking information in one concise batch. Do not ask for an optional choice when a disclosed default can safely proceed.
+
+## Product identity passport
+
+Before prompts are drafted, record the facts visibly supported by the supplied material: product category; full silhouette and proportions; dominant and accent colors; material and surface texture; distinctive details; included parts; logo/text; and packaging when it must appear. Mark each item as either `must match` or `not applicable`.
+
+Use this passport in every clip prompt and in every continuation. A new image, colorway, logo, material, product part, package, or product silhouette is a critical mismatch, not a creative variation.

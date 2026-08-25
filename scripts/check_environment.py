@@ -4,7 +4,9 @@
 from __future__ import annotations
 
 import argparse
+import platform
 import shutil
+import subprocess
 import sys
 from pathlib import Path
 
@@ -13,6 +15,11 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Check local prerequisites for this skill.")
     parser.add_argument("--assembly", action="store_true", help="Fail if FFmpeg is unavailable.")
     parser.add_argument("--ffmpeg", type=Path, help="Explicit FFmpeg executable path.")
+    parser.add_argument(
+        "--install-missing",
+        action="store_true",
+        help="Install missing FFmpeg through Windows winget after explicit user approval.",
+    )
     args = parser.parse_args()
 
     failed = False
@@ -29,6 +36,31 @@ def main() -> int:
 
     if ffmpeg:
         print(f"OK   FFmpeg: {ffmpeg}")
+    elif args.install_missing:
+        winget = shutil.which("winget")
+        if platform.system() != "Windows":
+            print("FAIL Automatic FFmpeg installation is currently supported only on Windows.")
+            failed = True
+        elif not winget:
+            print("FAIL Windows winget was not found. Install FFmpeg manually, then rerun this check.")
+            failed = True
+        else:
+            command = [
+                winget,
+                "install",
+                "--id",
+                "Gyan.FFmpeg.Shared",
+                "--exact",
+                "--accept-package-agreements",
+                "--accept-source-agreements",
+            ]
+            print("INFO Installing missing FFmpeg with winget after user approval.")
+            result = subprocess.run(command, check=False).returncode
+            if result:
+                print(f"FAIL FFmpeg installation failed with exit code {result}.")
+                failed = True
+            else:
+                print("OK   FFmpeg installation completed. Open a new terminal, then rerun this check.")
     elif args.assembly:
         print("FAIL FFmpeg not found. Install it, add it to PATH, or pass --ffmpeg C:\\path\\ffmpeg.exe.")
         failed = True
