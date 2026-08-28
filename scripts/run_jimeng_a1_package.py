@@ -298,6 +298,7 @@ def main() -> int:
     parser.add_argument("--http-timeout", type=int, default=60)
     parser.add_argument("--download-attempts", type=int, default=8, help="Automatic CDN download attempts per URL.")
     parser.add_argument("--download-route", choices=("auto", "system", "direct"), default="auto", help="CDN route: system proxy/VPN, proxy-bypassing direct, or both.")
+    parser.add_argument("--max-clips", type=int, help="Generate only the first N linked clips for an explicit low-cost test; skips final assembly when N is smaller than the package total.")
     parser.add_argument("--dry-run", action="store_true", help="Validate package and credentials without API submission.")
     parser.add_argument("--resume", action="store_true", help="Resume from saved manifest without resubmitting completed/submitted clips.")
     args = parser.parse_args()
@@ -314,6 +315,11 @@ def main() -> int:
     if clip_seconds not in {5, 10}:
         parser.error("Package clip_seconds must be 5 or 10.")
     expected_clips = 30 // clip_seconds
+    clip_limit = args.max_clips if args.max_clips is not None else expected_clips
+    if not 1 <= clip_limit <= expected_clips:
+        parser.error(f"--max-clips must be between 1 and {expected_clips} for this package.")
+    if package.get("test_only") and clip_limit != package.get("max_clips_required", 1):
+        parser.error("This test-only package must be run with its declared --max-clips value; it cannot submit a full package by accident.")
     frames = 24 * clip_seconds + 1
     if not reference.is_file():
         parser.error(f"Reference image does not exist: {reference}")
@@ -340,14 +346,14 @@ def main() -> int:
         manifest = {"status": "prepared", "model": REQ_KEY, "reference_image": str(reference.resolve()), "clips": []}
     write_json(manifest_path, manifest)
     print("OK credentials present (values hidden).")
-    print(f"OK package validated: {expected_clips} x {clip_seconds}s, output={args.output_dir}")
+    print(f"OK package validated: {clip_limit}/{expected_clips} clips x {clip_seconds}s, output={args.output_dir}")
     if args.dry_run:
         return 0
 
     current_reference = reference
     clips: list[Path] = []
     try:
-        for index, prompt in enumerate(prompts, start=1):
+        for index, prompt in enumerate(prompts[:clip_limit], start=1):
             clip_dir = args.output_dir / "clips" / f"clip-{index:02d}"
             existing = next((item for item in manifest["clips"] if item.get("clip") == index), None)
             if existing and existing.get("status") == "downloaded" and Path(existing.get("video", "")).is_file() and Path(existing.get("handoff", "")).is_file():
@@ -394,7 +400,7 @@ def main() -> int:
             except DownloadError:
                 # Signed CDN URLs are short-lived. Refresh once from the completed task,
                 # then repeat the same automatic route fallback before declaring failure.
-                print(f"WARN Refreshing completed task result for clip {index}/3 and retrying CDN download.")
+                print(f"WARN Refreshing completed task result for clip {index}/{clip_limit} and retrying CDN download.")
                 video_url, polled = wait_for_video(task_id, ak, sk, args.http_timeout, args.poll_interval, args.max_wait)
                 write_json(clip_dir / "result-response.json", polled)
                 download(video_url, video, args.http_timeout, args.download_attempts, args.download_route)
@@ -405,6 +411,12 @@ def main() -> int:
             clips.append(video)
             current_reference = handoff
             print(f"Downloaded clip {index}/{expected_clips} and extracted handoff frame.")
+        if clip_limit != expected_clips:
+            manifest["status"] = "partial_completed"
+            manifest["completed_clips"] = clip_limit
+            write_json(manifest_path, manifest)
+            print(f"Partial test completed: {clip_limit}/{expected_clips} clips. No final assembly was performed.")
+            return 0
         final = args.output_dir / "finals" / "package-01-30s.mp4"
         assemble(str(ffmpeg), clips, final)
         manifest["status"] = "completed"
