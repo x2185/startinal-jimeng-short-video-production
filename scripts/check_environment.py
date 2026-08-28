@@ -11,6 +11,19 @@ import sys
 from pathlib import Path
 
 
+def find_ffmpeg() -> str | None:
+    """Find FFmpeg on PATH or in the current project's conventional tools folder."""
+    on_path = shutil.which("ffmpeg")
+    if on_path:
+        return on_path
+    tools_dir = Path.cwd() / "tools"
+    if tools_dir.is_dir():
+        candidates = sorted(tools_dir.glob("**/ffmpeg.exe"))
+        if candidates:
+            return str(candidates[0])
+    return None
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Check local prerequisites for this skill.")
     parser.add_argument("--assembly", action="store_true", help="Fail if FFmpeg is unavailable.")
@@ -32,7 +45,7 @@ def main() -> int:
     if args.ffmpeg is not None:
         ffmpeg = str(args.ffmpeg) if args.ffmpeg.is_file() else None
     else:
-        ffmpeg = shutil.which("ffmpeg")
+        ffmpeg = find_ffmpeg()
 
     if ffmpeg:
         print(f"OK   FFmpeg: {ffmpeg}")
