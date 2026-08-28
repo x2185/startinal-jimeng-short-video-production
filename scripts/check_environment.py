@@ -80,6 +80,13 @@ def main() -> int:
     else:
         print("WARN FFmpeg not found. It is needed only for local video assembly.")
 
+    try:
+        import rembg  # type: ignore[import-not-found,unused-ignore]
+    except ImportError:
+        print("WARN Optional rembg not found. Product-reference packs will preserve source assets but cannot create automatic transparent cutouts.")
+    else:
+        print("OK   Optional rembg: automatic product-cutout candidates available (edge review still required).")
+
     print("INFO This skill can plan, audit, and write prompts without an API key.")
     print("INFO JiMeng API automation needs a provider-specific integration and local credentials; never store keys in this skill.")
     return 1 if failed else 0
