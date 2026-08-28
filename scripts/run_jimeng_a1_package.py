@@ -34,15 +34,43 @@ SUBMIT_ACTION = "CVSync2AsyncSubmitTask"
 RESULT_ACTION = "CVSync2AsyncGetResult"
 
 
+def find_ffmpeg(explicit: str | None = None) -> str | None:
+    """Resolve FFmpeg without requiring teammates to edit their system PATH.
+
+    A project can carry ``tools/ffmpeg/.../ffmpeg.exe`` with it.  The runner may
+    be launched either from that project or from an installed Skill folder, so
+    check the working project first and the bundled-project layout second.
+    """
+    if explicit:
+        candidate = Path(explicit).expanduser()
+        return str(candidate) if candidate.is_file() else None
+    on_path = shutil.which("ffmpeg")
+    if on_path:
+        return on_path
+    roots = [Path.cwd(), Path(__file__).resolve().parents[3]]
+    for root in roots:
+        tools_dir = root / "tools"
+        if not tools_dir.is_dir():
+            continue
+        candidates = sorted(tools_dir.glob("**/ffmpeg.exe"))
+        if candidates:
+            return str(candidates[0])
+    return None
+
+
 def load_dotenv(path: Path) -> None:
-    """Load only unset environment variables from a simple KEY=VALUE file."""
+    """Load only unset variables from a simple ``KEY=VALUE`` or ``KEY:VALUE`` file."""
     if not path.is_file():
         return
     for raw in path.read_text(encoding="utf-8").splitlines():
         line = raw.strip()
-        if not line or line.startswith("#") or "=" not in line:
+        if not line or line.startswith("#"):
             continue
-        key, value = line.split("=", 1)
+        separators = [index for index in (line.find("="), line.find(":")) if index >= 0]
+        if not separators:
+            continue
+        separator_index = min(separators)
+        key, value = line[:separator_index], line[separator_index + 1 :]
         key = key.strip()
         value = value.strip().strip('"').strip("'")
         if key and key not in os.environ:
@@ -141,11 +169,11 @@ def write_json(path: Path, payload: Any) -> None:
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-def submit_clip(reference: Path, prompt: str, ak: str, sk: str, timeout: int) -> tuple[str, dict[str, Any]]:
+def submit_clip(reference: Path, prompt: str, frames: int, ak: str, sk: str, timeout: int) -> tuple[str, dict[str, Any]]:
     encoded = base64.b64encode(reference.read_bytes()).decode("ascii")
     response = signed_post(
         SUBMIT_ACTION,
-        {"req_key": REQ_KEY, "binary_data_base64": [encoded], "prompt": prompt, "seed": -1, "frames": 241},
+        {"req_key": REQ_KEY, "binary_data_base64": [encoded], "prompt": prompt, "seed": -1, "frames": frames},
         ak,
         sk,
         timeout,
@@ -204,7 +232,10 @@ def download(url: str, destination: Path, timeout: int, attempts: int, route: st
     failures: list[str] = []
     for attempt in range(1, attempts + 1):
         route_name, direct = routes[(attempt - 1) % len(routes)]
-        temporary = destination.with_suffix(destination.suffix + ".part")
+        # Use a distinct temporary name per attempt.  On Windows, antivirus or
+        # file-indexing can briefly hold a previous .part file after a failed
+        # download; reusing it prevents a safe resume of an already-paid task.
+        temporary = destination.with_suffix(destination.suffix + f".part-{attempt}")
         temporary.unlink(missing_ok=True)
         try:
             opener = urllib.request.build_opener(urllib.request.ProxyHandler({})) if direct else urllib.request.build_opener()
@@ -225,17 +256,17 @@ def download(url: str, destination: Path, timeout: int, attempts: int, route: st
     raise DownloadError(f"Video download failed after {attempts} automatic attempts ({'; '.join(failures[-2:])}).")
 
 
-def extract_handoff(ffmpeg: str, video: Path, handoff_dir: Path) -> Path:
-    """Archive candidate frames and use 9s as the deterministic stable handoff."""
+def extract_handoff(ffmpeg: str, video: Path, handoff_dir: Path, clip_seconds: int) -> Path:
+    """Archive candidate frames from a clip's stable final second."""
     handoff_dir.mkdir(parents=True, exist_ok=True)
-    candidates = [8.0, 8.5, 9.0, 9.4]
+    candidates = [8.0, 8.5, 9.0, 9.4] if clip_seconds == 10 else [3.0, 3.5, 4.0, 4.4]
     for second in candidates:
         target = handoff_dir / f"candidate-{second:.1f}s.jpg"
         subprocess.run(
             [ffmpeg, "-hide_banner", "-loglevel", "error", "-y", "-ss", str(second), "-i", str(video), "-frames:v", "1", "-q:v", "2", str(target)],
             check=True,
         )
-    selected = handoff_dir / "candidate-9.0s.jpg"
+    selected = handoff_dir / ("candidate-9.0s.jpg" if clip_seconds == 10 else "candidate-4.0s.jpg")
     if not selected.is_file():
         raise RuntimeError("Failed to extract selected handoff frame.")
     return selected
@@ -257,8 +288,8 @@ def assemble(ffmpeg: str, clips: list[Path], output: Path) -> None:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Generate one linked 3 x 10-second JiMeng A1 package.")
-    parser.add_argument("--package", required=True, type=Path, help="JSON file with reference_image and three prompts.")
+    parser = argparse.ArgumentParser(description="Generate one linked 30-second JiMeng A1 package (3 x 10s or 6 x 5s).")
+    parser.add_argument("--package", required=True, type=Path, help="JSON file with reference_image and one prompt per clip.")
     parser.add_argument("--output-dir", required=True, type=Path, help="Directory for prompts, task records, clips, handoffs, and final.")
     parser.add_argument("--env-file", type=Path, default=Path(".env"), help="Ignored local credential file.")
     parser.add_argument("--ffmpeg", help="FFmpeg executable path; otherwise resolve from PATH.")
@@ -279,17 +310,22 @@ def main() -> int:
     package = json.loads(args.package.read_text(encoding="utf-8"))
     reference = Path(package["reference_image"])
     prompts = package.get("prompts")
+    clip_seconds = package.get("clip_seconds", 10)
+    if clip_seconds not in {5, 10}:
+        parser.error("Package clip_seconds must be 5 or 10.")
+    expected_clips = 30 // clip_seconds
+    frames = 24 * clip_seconds + 1
     if not reference.is_file():
         parser.error(f"Reference image does not exist: {reference}")
-    if not isinstance(prompts, list) or len(prompts) != 3 or not all(isinstance(item, str) and item.strip() for item in prompts):
-        parser.error("Package JSON must contain exactly three non-empty prompts.")
+    if not isinstance(prompts, list) or len(prompts) != expected_clips or not all(isinstance(item, str) and item.strip() for item in prompts):
+        parser.error(f"Package JSON must contain exactly {expected_clips} non-empty prompts for {clip_seconds}s clips.")
     if reference.suffix.lower() not in {".jpg", ".jpeg", ".png"}:
         parser.error("Reference image must be JPEG or PNG.")
     if reference.stat().st_size > 4_700_000:
         parser.error("Reference image exceeds the API's 4.7 MB limit.")
-    ffmpeg = args.ffmpeg or shutil.which("ffmpeg")
+    ffmpeg = find_ffmpeg(args.ffmpeg)
     if not ffmpeg and not args.dry_run:
-        parser.error("FFmpeg is required for handoff extraction and assembly. Pass --ffmpeg or add it to PATH.")
+        parser.error("FFmpeg is required for handoff extraction and assembly. Pass --ffmpeg, add it to PATH, or keep it under tools/.")
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
     write_json(args.output_dir / "prompts.json", package)
@@ -304,7 +340,7 @@ def main() -> int:
         manifest = {"status": "prepared", "model": REQ_KEY, "reference_image": str(reference.resolve()), "clips": []}
     write_json(manifest_path, manifest)
     print("OK credentials present (values hidden).")
-    print(f"OK package validated: 3 x 10s, output={args.output_dir}")
+    print(f"OK package validated: {expected_clips} x {clip_seconds}s, output={args.output_dir}")
     if args.dry_run:
         return 0
 
@@ -317,22 +353,22 @@ def main() -> int:
             if existing and existing.get("status") == "downloaded" and Path(existing.get("video", "")).is_file() and Path(existing.get("handoff", "")).is_file():
                 clips.append(Path(existing["video"]))
                 current_reference = Path(existing["handoff"])
-                print(f"Reused downloaded clip {index}/3.")
+                print(f"Reused downloaded clip {index}/{expected_clips}.")
                 continue
             video = clip_dir / f"clip-{index:02d}.mp4"
             if existing and has_video_file(video):
-                handoff = extract_handoff(str(ffmpeg), video, clip_dir / "handoff")
+                handoff = extract_handoff(str(ffmpeg), video, clip_dir / "handoff", clip_seconds)
                 existing.update({"status": "downloaded", "video": str(video.resolve()), "handoff": str(handoff.resolve())})
                 write_json(manifest_path, manifest)
                 clips.append(video)
                 current_reference = handoff
-                print(f"Recovered existing local clip {index}/3 without resubmitting or downloading.")
+                print(f"Recovered existing local clip {index}/{expected_clips} without resubmitting or downloading.")
                 continue
             if existing and existing.get("status") == "submitted" and existing.get("task_id"):
                 task_id = str(existing["task_id"])
-                print(f"Resuming submitted clip {index}/3: task_id={task_id}")
+                print(f"Resuming submitted clip {index}/{expected_clips}: task_id={task_id}")
             else:
-                task_id, submitted = submit_clip(current_reference, prompt, ak, sk, args.http_timeout)
+                task_id, submitted = submit_clip(current_reference, prompt, frames, ak, sk, args.http_timeout)
                 write_json(clip_dir / "submit-response.json", submitted)
                 entry = {"clip": index, "task_id": task_id, "reference": str(current_reference.resolve()), "status": "submitted"}
                 if existing:
@@ -340,7 +376,7 @@ def main() -> int:
                 else:
                     manifest["clips"].append(entry)
                 write_json(manifest_path, manifest)
-                print(f"Submitted clip {index}/3: task_id={task_id}")
+                print(f"Submitted clip {index}/{expected_clips}: task_id={task_id}")
             cached_result = clip_dir / "result-response.json"
             if cached_result.is_file():
                 polled = json.loads(cached_result.read_text(encoding="utf-8"))
@@ -349,7 +385,7 @@ def main() -> int:
                 if not video_url:
                     video_url, polled = wait_for_video(task_id, ak, sk, args.http_timeout, args.poll_interval, args.max_wait)
                 else:
-                    print(f"Reusing cached result URL for clip {index}/3.")
+                    print(f"Reusing cached result URL for clip {index}/{expected_clips}.")
             else:
                 video_url, polled = wait_for_video(task_id, ak, sk, args.http_timeout, args.poll_interval, args.max_wait)
             write_json(clip_dir / "result-response.json", polled)
@@ -362,13 +398,13 @@ def main() -> int:
                 video_url, polled = wait_for_video(task_id, ak, sk, args.http_timeout, args.poll_interval, args.max_wait)
                 write_json(clip_dir / "result-response.json", polled)
                 download(video_url, video, args.http_timeout, args.download_attempts, args.download_route)
-            handoff = extract_handoff(str(ffmpeg), video, clip_dir / "handoff")
+            handoff = extract_handoff(str(ffmpeg), video, clip_dir / "handoff", clip_seconds)
             entry = next(item for item in manifest["clips"] if item.get("clip") == index)
             entry.update({"status": "downloaded", "video": str(video.resolve()), "handoff": str(handoff.resolve())})
             write_json(manifest_path, manifest)
             clips.append(video)
             current_reference = handoff
-            print(f"Downloaded clip {index}/3 and extracted handoff frame.")
+            print(f"Downloaded clip {index}/{expected_clips} and extracted handoff frame.")
         final = args.output_dir / "finals" / "package-01-30s.mp4"
         assemble(str(ffmpeg), clips, final)
         manifest["status"] = "completed"
