@@ -11,6 +11,19 @@ import tempfile
 from pathlib import Path
 
 
+def find_ffmpeg() -> str | None:
+    """Find FFmpeg on PATH or in the current project's conventional tools folder."""
+    on_path = shutil.which("ffmpeg")
+    if on_path:
+        return on_path
+    tools_dir = Path.cwd() / "tools"
+    if tools_dir.is_dir():
+        candidates = sorted(tools_dir.glob("**/ffmpeg.exe"))
+        if candidates:
+            return str(candidates[0])
+    return None
+
+
 def concat_line(path: Path) -> str:
     """Produce a safe FFmpeg concat-demuxer file line."""
     return "file '" + path.resolve().as_posix().replace("'", r"'\\''") + "'\n"
@@ -42,9 +55,9 @@ def main() -> int:
             parser.error(f"FFmpeg executable does not exist: {args.ffmpeg}")
         ffmpeg = str(args.ffmpeg)
     else:
-        ffmpeg = shutil.which("ffmpeg")
+        ffmpeg = find_ffmpeg()
         if not ffmpeg:
-            parser.error("FFmpeg was not found on PATH. Install it, add it to PATH, or pass --ffmpeg C:\\path\\ffmpeg.exe.")
+            parser.error("FFmpeg was not found on PATH or under tools/. Install it, add it to PATH, or pass --ffmpeg C:\\path\\ffmpeg.exe.")
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.NamedTemporaryFile("w", encoding="utf-8", suffix=".txt", delete=False) as handle:
