@@ -1,13 +1,11 @@
 # Job workspace and resume
 
-Use one durable product workspace per SKU. A new Codex conversation has no reliable working memory, so it must resume from this workspace before reading raw material again.
+Do not ask an operator to build a folder tree. They provide only the existing material folder and the target SKU; the Skill creates and maintains the records under the project `jobs` folder. A new Codex conversation has no reliable working memory, so it must resume from the generated record before reading raw material again.
 
 ```text
-D:\JiMeng任务\<product>\<sku>\
-  source\                 # immutable original images and real footage
-  product-record\          # asset-manifest, passport, evidence ledger, approved facts
-  jobs\
-    <YYYY-MM-DD--campaign>\
+<project>\jobs\<product>--<sku>\
+  product-record\          # automatically created asset manifest, passport, evidence ledger
+  <YYYY-MM-DD--campaign>\
       brief\               # current brief, storyboard, prompt package
       api-runs\             # task IDs, responses, downloads, review frames
       review\               # acceptance and failure records
@@ -15,10 +13,10 @@ D:\JiMeng任务\<product>\<sku>\
       accepted\             # clips selected for this job's finished video
       rejected\             # failed clips, never used as evidence or handoff
       final\                # deliverable MP4 and render manifest
-  learning-library\         # optional approved historical learning records only
+  learning-library\         # optional automatic learning records
 ```
 
-Never move or overwrite files in `source`. Keep `.env` beside the local workspace or in a separate private configuration location; never commit it or put it in a shared learning library.
+Never move or overwrite the operator's material folder. Keep `.env` beside the project or in a separate private configuration location; never commit it or put it in a shared learning library.
 
 ## New conversation / teammate resume
 
@@ -26,9 +24,10 @@ Start with the product workspace and job folder, not a broad request to rediscov
 
 ```text
 Use $startinal-jimeng-short-video-production.
-Resume workspace: D:\JiMeng任务\<product>\<sku>
-Job: <YYYY-MM-DD--campaign>, or create one if absent.
-Read product-record and the current job first. Scan source only for changes.
+Materials: D:\素材\<product>
+SKU: <colour/style>
+Resume the matching job if one exists; otherwise create it automatically under jobs.
+Read the generated product record and current job first. Scan the material folder only for changes.
 Continue toward one finished 30-second MP4; do not deliver raw fragments by default.
 ```
 
@@ -36,7 +35,7 @@ The Skill must read, in order: `product-record/asset-manifest.json`; identity pa
 
 ## When material changes
 
-Place new or replacement files in `source`, then rescan. Do not overwrite a reviewed file without retaining a dated replacement or recording the change.
+Place new or replacement files in the existing material folder, then say “素材已更新”. Do not overwrite a reviewed file without retaining a dated replacement or recording the change.
 
 | Change | Required response |
 | --- | --- |
