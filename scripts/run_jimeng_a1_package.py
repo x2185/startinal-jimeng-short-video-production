@@ -3,6 +3,11 @@
 
 The runner uses Volcengine AK/SK Signature V4 directly and only reads credentials
 from an ignored .env file or the process environment. It never prints secrets.
+
+This is a legacy *single-first-frame* API runner. It must not be used for
+mechanical or state-changing demonstrations that need multiple product views.
+Prepare those jobs for JiMeng's All-reference UI instead, where the operator
+can attach verified start, detail, and end-state evidence for the clip.
 """
 
 from __future__ import annotations
@@ -289,7 +294,7 @@ def assemble(ffmpeg: str, clips: list[Path], output: Path) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Generate one linked 30-second JiMeng A1 package (3 x 10s or 6 x 5s).")
-    parser.add_argument("--package", required=True, type=Path, help="JSON file with reference_image and one prompt per clip.")
+    parser.add_argument("--package", required=True, type=Path, help="JSON file with one reference_image and one prompt per clip (single-frame API only).")
     parser.add_argument("--output-dir", required=True, type=Path, help="Directory for prompts, task records, clips, handoffs, and final.")
     parser.add_argument("--env-file", type=Path, default=Path(".env"), help="Ignored local credential file.")
     parser.add_argument("--ffmpeg", help="FFmpeg executable path; otherwise resolve from PATH.")
@@ -309,6 +314,12 @@ def main() -> int:
     if not ak or not sk:
         parser.error("Missing Volcengine credentials. Set AccessKeyID/SecretAccessKey or VOLCENGINE_ACCESS_KEY_ID/VOLCENGINE_SECRET_ACCESS_KEY in the local .env.")
     package = json.loads(args.package.read_text(encoding="utf-8"))
+    extra_references = package.get("reference_images")
+    if isinstance(extra_references, list) and len(extra_references) > 1:
+        parser.error(
+            "This legacy first-frame API accepts one image only. For a multi-state "
+            "action, use the All-reference UI submission plan instead of this runner."
+        )
     reference = Path(package["reference_image"])
     prompts = package.get("prompts")
     clip_seconds = package.get("clip_seconds", 10)
