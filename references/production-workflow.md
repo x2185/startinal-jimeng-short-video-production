@@ -38,9 +38,9 @@ Approve a clip only when:
 
 Reject and regenerate the individual clip when any condition fails. Do not ask the compositor to hide a broken product or label.
 
-## Continuation reference gate
+## Continuation reference gate (multi-reference routes only)
 
-Before generating a continuation, sample 4–8 candidates from the prior clip's final stable 1–2 seconds and visually inspect a contact sheet. Select a sharp, product-visible frame that preserves the needed actor pose and scene. Do not blindly use the literal last frame; regenerate the prior clip if it has no usable handoff frame. See `reference-frame-gate.md` for the required record.
+Before generating a continuation in an API that accepts an additional reference, sample 4–8 candidates from the prior clip's final stable 1–2 seconds and visually inspect a contact sheet. Select a sharp, product-visible frame that preserves the needed actor pose and scene. Do not blindly use the literal last frame; regenerate the prior clip if it has no usable handoff frame. The legacy 720P single-first-frame API cannot use this alongside its fixed identity image, so it must use intentional scene cuts instead. See `reference-frame-gate.md` for the required record.
 
 ## Local assembly
 
