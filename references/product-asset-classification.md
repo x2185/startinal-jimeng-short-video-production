@@ -16,3 +16,9 @@ Classify every supplied image, video, and extracted frame before it can be used 
 | `do_not_use` | Personal/card data, unrelated SKU, external brand, unsafe/prohibited content | Exclude from prompts and upload set |
 
 For every requested video beat, choose assets in this order: `identity` + the relevant `detail` + `action_start` + `action_end`. Add `action_process` only when it clearly proves the movement. If either state is missing, mark the feature `needs additional asset`; do not let a generic identity image fill the gap.
+
+## Missing-evidence rule
+
+When evidence is missing, ask one focused question that names the exact needed material—for example: “Please provide one clear image/video frame showing the compartment fully open with the card inserted.” Do not ask for a generic “more images.”
+
+If the user cannot provide the requested material, label the beat `omit` and remove its action, mechanism, claim, and dependent scene from the storyboard and prompts. Replace it only with a lower-risk beat that is supported by available evidence, such as a stable product reveal, visible detail close-up, or user reaction. Never invent an unseen product state, part, mechanism, or result.
