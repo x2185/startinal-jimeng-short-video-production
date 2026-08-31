@@ -13,8 +13,8 @@ Create a portable `material-library.json` beside the job records. It must contai
 3. Otherwise write `inferred_template`: subject/SKU lock; one action; camera/framing; setting; lighting; ending; negative constraints; and any observed failure exclusions.
 4. State that `inferred_template` is a tested recreation, not the original prompt.
 
-Generated media may supply style, framing, pacing, product-visible composition, and a previously accepted result state. It never proves a hidden product mechanism or a new marketing claim.
+Generated media may supply style, framing, pacing, product-visible composition, and a previously accepted result state. It never proves a hidden product mechanism or a new marketing claim. Unless the user explicitly asks for the exact prior clip to be reused, it is a learning reference only—not source media for a new final video.
 
 ## Batch use
 
-Search same-SKU, same-beat approved clips before generating. Reuse an accepted clip directly when it passes current restrictions. When generating a variation, start from its prompt-learning record, change only the requested variables, and keep the identity and failure exclusions locked.
+Search same-SKU, same-beat approved clips before generating to learn what worked. When generating a new variation, start from its prompt-learning record, change the current scene and requested variables, and keep the identity and failure exclusions locked. Submit a newly generated clip for every new deliverable.
