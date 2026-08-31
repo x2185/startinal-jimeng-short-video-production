@@ -309,7 +309,7 @@ def main() -> int:
     args = parser.parse_args()
 
     load_dotenv(args.env_file)
-    ak = env_value("VOLCENGINE_ACCESS_KEY_ID", "VOLC_ACCESSKEY", "AccessKeyID")
+    ak = env_value("VOLCENGINE_ACCESS_KEY_ID", "VOLC_ACCESSKEY", "AccessKeyID", "AccessKeyid")
     sk = env_value("VOLCENGINE_SECRET_ACCESS_KEY", "VOLC_SECRETKEY", "SecretAccessKey")
     if not ak or not sk:
         parser.error("Missing Volcengine credentials. Set AccessKeyID/SecretAccessKey or VOLCENGINE_ACCESS_KEY_ID/VOLCENGINE_SECRET_ACCESS_KEY in the local .env.")
