@@ -15,3 +15,16 @@ Use this gate before treating a product property or action as prompt-ready.
 Every prompt must use the ledger rather than a vague product description. Require configuration pairings when they matter, and explicitly prohibit swaps, missing parts, extra parts, recolors, relabeling, or redesigned geometry. Do not use a generic beauty image to authorize an unseen mechanism or handling action.
 
 If an action cannot be tied to a specific start state and end state in the supplied material, either request a dedicated action asset or omit the action from the generated video.
+
+## Required analysis output before prompts
+
+Return the material analysis before any prompt package:
+
+| Evidence role | Selected source | What it visibly proves | Prompt decision |
+| --- | --- | --- | --- |
+| Identity | File/frame | Exact product traits that must match | Include as identity lock |
+| Detail | File/frame | A visible feature or marking | Include as close-up proof, or omit |
+| Action start | File/frame | The allowed starting configuration | Use as the only permitted start state |
+| Action end | File/frame | The required final configuration | Use as the required end state |
+
+For each requested feature, choose exactly one result: **supported and promptable**, **needs an additional asset**, or **omit from this video**. Never draft a generic prompt first and retrofit the evidence afterward.
