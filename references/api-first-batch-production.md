@@ -16,7 +16,7 @@ The legacy `jimeng_i2v_first_v30` endpoint accepts one local image encoded as Ba
 
 For the legacy single-first-frame API, generate several independent **5-second scene blocks** rather than one continuous 30-second performance. Each block has one low-risk action only: stable hero display, pick up, set down, carry, show in a bag/pocket, small orientation change, material macro, or a reaction with the product unchanged. Vary the setting, framing, hook, and actor/context across blocks while preserving the same SKU identity.
 
-Build the 30-second video in deterministic finishing from accepted blocks: hook → varied context/product proof → approved real action insert when needed → hero ending. This preserves scene variety without allowing an early deformed frame to propagate through a long generated sequence.
+Build and deliver the 30-second video in deterministic finishing from accepted blocks: hook → varied context/product proof → approved real action insert when needed → hero ending. The generated blocks are production sources, not the default user delivery. Return raw clips only when explicitly requested, or when the final is blocked because a required real-action insert is missing.
 
 Actual payment contact, card insertion/loading, hidden-slot operation, twisting, fastening, assembly, and other exact state transitions are **not** legacy-single-frame scene blocks. If the final video must show one, use an approved same-SKU real-footage insert. Use a compatible multi-reference API only after verifying its current input contract; never use another SKU merely to demonstrate the motion.
 
