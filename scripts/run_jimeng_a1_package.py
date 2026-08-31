@@ -4,10 +4,9 @@
 The runner uses Volcengine AK/SK Signature V4 directly and only reads credentials
 from an ignored .env file or the process environment. It never prints secrets.
 
-This is a legacy *single-first-frame* API runner. It must not be used for
-mechanical or state-changing demonstrations that need multiple product views.
-Prepare those jobs for JiMeng's All-reference UI instead, where the operator
-can attach verified start, detail, and end-state evidence for the clip.
+This runner supports only the legacy *single-first-frame* API. It is for
+low-risk product display and independently cut shots, not mechanical or
+state-changing demonstrations that need several product views.
 """
 
 from __future__ import annotations
@@ -277,6 +276,26 @@ def extract_handoff(ffmpeg: str, video: Path, handoff_dir: Path, clip_seconds: i
     return selected
 
 
+def extract_review_frames(ffmpeg: str, video: Path, review_dir: Path, clip_seconds: int) -> list[Path]:
+    """Create a compact, deterministic inspection set for automated visual QA.
+
+    These frames do not certify identity or anatomy by themselves.  They make
+    the start, middle, action area, and ending available to Codex's visual
+    review without an operator having to scrub every source clip manually.
+    """
+    review_dir.mkdir(parents=True, exist_ok=True)
+    moments = [0.0, 0.5, clip_seconds * 0.35, clip_seconds * 0.55, clip_seconds * 0.75, max(0.0, clip_seconds - 0.6)]
+    outputs: list[Path] = []
+    for index, second in enumerate(sorted(set(round(value, 2) for value in moments)), start=1):
+        target = review_dir / f"review-{index:02d}-{second:.2f}s.jpg"
+        subprocess.run(
+            [ffmpeg, "-hide_banner", "-loglevel", "error", "-y", "-ss", str(second), "-i", str(video), "-frames:v", "1", "-q:v", "2", str(target)],
+            check=True,
+        )
+        outputs.append(target)
+    return outputs
+
+
 def assemble(ffmpeg: str, clips: list[Path], output: Path) -> None:
     output.parent.mkdir(parents=True, exist_ok=True)
     concat = output.with_suffix(".concat.txt")
@@ -321,6 +340,9 @@ def main() -> int:
             "action, use the All-reference UI submission plan instead of this runner."
         )
     reference = Path(package["reference_image"])
+    continuity_mode = package.get("continuity_mode", "independent")
+    if continuity_mode not in {"independent", "handoff"}:
+        parser.error("Package continuity_mode must be 'independent' or 'handoff'.")
     prompts = package.get("prompts")
     clip_seconds = package.get("clip_seconds", 10)
     if clip_seconds not in {5, 10}:
@@ -357,7 +379,7 @@ def main() -> int:
         manifest = {"status": "prepared", "model": REQ_KEY, "reference_image": str(reference.resolve()), "clips": []}
     write_json(manifest_path, manifest)
     print("OK credentials present (values hidden).")
-    print(f"OK package validated: {clip_limit}/{expected_clips} clips x {clip_seconds}s, output={args.output_dir}")
+    print(f"OK package validated: {clip_limit}/{expected_clips} clips x {clip_seconds}s, continuity={continuity_mode}, output={args.output_dir}")
     if args.dry_run:
         return 0
 
@@ -365,11 +387,16 @@ def main() -> int:
     clips: list[Path] = []
     try:
         for index, prompt in enumerate(prompts[:clip_limit], start=1):
+            if continuity_mode == "independent":
+                # Independent cuts prevent an unnoticed warped hand, product, or
+                # actor from becoming the source image for every later clip.
+                current_reference = reference
             clip_dir = args.output_dir / "clips" / f"clip-{index:02d}"
             existing = next((item for item in manifest["clips"] if item.get("clip") == index), None)
             if existing and existing.get("status") == "downloaded" and Path(existing.get("video", "")).is_file() and Path(existing.get("handoff", "")).is_file():
                 clips.append(Path(existing["video"]))
-                current_reference = Path(existing["handoff"])
+                if continuity_mode == "handoff":
+                    current_reference = Path(existing["handoff"])
                 print(f"Reused downloaded clip {index}/{expected_clips}.")
                 continue
             video = clip_dir / f"clip-{index:02d}.mp4"
@@ -378,7 +405,8 @@ def main() -> int:
                 existing.update({"status": "downloaded", "video": str(video.resolve()), "handoff": str(handoff.resolve())})
                 write_json(manifest_path, manifest)
                 clips.append(video)
-                current_reference = handoff
+                if continuity_mode == "handoff":
+                    current_reference = handoff
                 print(f"Recovered existing local clip {index}/{expected_clips} without resubmitting or downloading.")
                 continue
             if existing and existing.get("status") == "submitted" and existing.get("task_id"):
@@ -416,12 +444,20 @@ def main() -> int:
                 write_json(clip_dir / "result-response.json", polled)
                 download(video_url, video, args.http_timeout, args.download_attempts, args.download_route)
             handoff = extract_handoff(str(ffmpeg), video, clip_dir / "handoff", clip_seconds)
+            review_frames = extract_review_frames(str(ffmpeg), video, clip_dir / "review", clip_seconds)
             entry = next(item for item in manifest["clips"] if item.get("clip") == index)
-            entry.update({"status": "downloaded", "video": str(video.resolve()), "handoff": str(handoff.resolve())})
+            entry.update({
+                "status": "downloaded_pending_visual_qa",
+                "video": str(video.resolve()),
+                "handoff": str(handoff.resolve()),
+                "review_frames": [str(frame.resolve()) for frame in review_frames],
+                "qa": "pending_codex_visual_review",
+            })
             write_json(manifest_path, manifest)
             clips.append(video)
-            current_reference = handoff
-            print(f"Downloaded clip {index}/{expected_clips} and extracted handoff frame.")
+            if continuity_mode == "handoff":
+                current_reference = handoff
+            print(f"Downloaded clip {index}/{expected_clips}; extracted review and handoff frames.")
         if clip_limit != expected_clips:
             manifest["status"] = "partial_completed"
             manifest["completed_clips"] = clip_limit
@@ -430,8 +466,9 @@ def main() -> int:
             return 0
         final = args.output_dir / "finals" / "package-01-30s.mp4"
         assemble(str(ffmpeg), clips, final)
-        manifest["status"] = "completed"
+        manifest["status"] = "assembled_pending_visual_qa"
         manifest["final_video"] = str(final.resolve())
+        manifest["qa"] = "Codex must inspect each clip's review_frames and the assembled cut before delivery."
         write_json(manifest_path, manifest)
         print(f"Completed: {final}")
         return 0
