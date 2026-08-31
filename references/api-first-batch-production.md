@@ -12,6 +12,12 @@ Use this mode when the operator's primary workflow is API generation. It is the 
 
 The legacy `jimeng_i2v_first_v30` endpoint accepts one local image encoded as Base64. It is suitable for stable display or a deliberately limited one-action test. It is not an excuse to invent hidden mechanisms.
 
+### One-image hard limit
+
+For this endpoint, upload **one target-SKU product identity image only** for each low-risk scene block. Do not upload an original product image and a generated prior-tail frame together: the endpoint cannot accept both. Review the prior tail to decide whether it is usable in the final edit, but keep the next API call anchored to the fixed original identity image. Do not automatically use a generated tail as the next block's sole reference, because a malformed hand or product can then propagate into later clips.
+
+An accepted tail frame becomes an additional generation input only after moving to a verified multi-reference route. It is never a substitute for the target product identity reference in the legacy batch route.
+
 ## Default 720P scene-block strategy
 
 For the legacy single-first-frame API, generate several independent **5-second scene blocks** rather than one continuous 30-second performance. Each block has one low-risk action only: stable hero display, pick up, set down, carry, show in a bag/pocket, small orientation change, material macro, or a reaction with the product unchanged. Vary the setting, framing, hook, and actor/context across blocks while preserving the same SKU identity.
