@@ -11,6 +11,8 @@ Create a production plan; do not submit paid JiMeng generation tasks unless the 
 
 When the user says they use an API, or does not explicitly request JiMeng's web UI, use the API-first route. Read `references/api-first-batch-production.md` before preparing a batch. The local API runner reads approved local reference files and sends them as Base64; do not ask the user to log into the web UI or provide public URLs for this route. Treat the web UI as an optional, explicitly chosen fallback—not the default.
 
+When a product folder contains prior generated videos, read `references/reuse-library-and-reverse-prompt.md` before planning. Treat user-approved folders as reusable generated media, not product evidence. Extract an original prompt from filename/job record when present; otherwise create a clearly labelled inferred prompt template from observed shots. Store all reusable paths relative to a configured material-library root so another computer can rescan and restore the library.
+
 For a new teammate or computer, when working from the full project and `scripts/verify_team_checkout.ps1` exists, run that project-level check first. Then run `scripts/setup_video_pipeline.ps1 -Action Check` and `scripts/check_environment.py --assembly` when local assembly is needed. A standalone installed Skill can skip the project-level check. These checks are read-only. On explicit approval only, the setup script can install the project-local HyperFrames skill, download (but never launch) Docker Desktop, or start a local Activepieces instance after Docker is already running. Read `references/team-setup.md` for this optional layer and `references/environment-setup.md` for the minimal FFmpeg setup; never install software, accept external terms, or expose credentials without explicit user approval.
 
 ## First interaction
@@ -51,6 +53,7 @@ Read `references/first-run-intake.md` for the opening wording and intake routing
 19. Preview and inspect the finished render before delivery using `references/product-proof-acceptance.md`. A deterministic overlay may clarify captions, transitions, or layout, but must never conceal a failed product action, changed product identity, warped object, or unapproved claim. Replace or regenerate the failed source clip instead.
 20. After an accepted/rejected test or material user feedback, write a concise job retrospective and failure record using `references/product-proof-acceptance.md`. For an iterative test, use the closed-loop optimization pass: evaluate candidates against the locked product/action/continuity checks, diagnose the failed layer, revise only that layer, and regenerate only failed clips after paid approval. Keep the lesson product-local by default; promote it into the shared skill only when it has repeated across products or the user explicitly confirms it as a general production preference.
 21. After a run, classify generated outputs non-destructively with `scripts/catalog_generated_assets.py`, then use `scripts/organize_generated_assets.py` to copy and rename reviewed material into the generated-material library. Keep original product evidence, accepted generated references, unreviewed candidates, rejected media, and job records distinct. Never move the original run folder or treat a generated asset as product evidence.
+22. Before a new API batch, search the approved generated-media library for an existing same-SKU clip that already passes the needed beat. Reuse it before spending on a new API task. Build a prompt-learning record for every reused clip: source path, SKU, beat, observed camera/action/ending, prompt provenance (`recorded` or `inferred`), and known failure exclusions. An inferred record is a reusable template, never a claim that the exact historical prompt has been recovered.
 
 ## Intake gate
 
@@ -89,6 +92,7 @@ Read `references/multi-reference-action-submission.md` before submitting a rotat
 Read `references/api-first-batch-production.md` before any API batch, API retry, or API-vs-UI routing decision.
 Read `references/pre-submission-prompt-optimization.md` before presenting a prompt set as submission-ready or asking for paid JiMeng approval.
 Read `references/generated-asset-catalog.md` when cataloging generated clips, final videos, handoff frames, or reusable approved media.
+Read `references/reuse-library-and-reverse-prompt.md` when a user identifies prior generated videos as good, asks to learn from them, reverse-engineer prompts, or reuse material across computers.
 
 ## Prompt rules
 
