@@ -27,13 +27,11 @@ Classify every beat before writing submission prompts:
 | Route | Suitable beat | Production rule |
 | --- | --- | --- |
 | `generate_low_risk` | establishing environment, adult reaction without product handling, stable product display, camera-only detail, ordinary cut | Generate as independent scene blocks with exact identity locks. |
-| `verified_multireference` | a precise interaction that has same-SKU state evidence and a verified compatible input route | Use all supplied state references only after the route is confirmed for the job. |
-| `real_footage_insert` | payment contact, card loading, twisting, assembly, fine hand contact, a required on-screen result | Use only the named, clean, same-SKU real clip the user explicitly authorizes for this final. |
-| `omit_or_rewrite` | unsupported mechanism, prohibited claim, missing evidence, unsafe or ambiguous result | Replace with a supported story beat; do not ask the legacy single-first-frame API to invent it. |
+| `real_footage_insert` | payment contact, card loading, twisting, assembly, fine hand contact, a required on-screen result | Use only when the user explicitly names an existing, clean, same-SKU real clip for this final; never suggest it by default. |
+| `omit_or_rewrite` | all fine or state-changing actions by default; unsupported mechanism, prohibited claim, missing evidence, unsafe or ambiguous result | Replace with a supported story beat; do not ask any generative route to invent it. |
 
-Do not use a continuous story prompt to hide a risky interaction. For the legacy 720P API, make intentional cuts between independent generated story blocks and an approved real/multi-reference action insert.
+Do not use a continuous story prompt to hide a risky interaction. For the legacy 720P API, make intentional cuts between independent generated story blocks. Fine actions remain omitted unless the user explicitly directs use of a named real-footage insert.
 
 ## Text, brands, and outcomes
 
 Only request readable screen text, a payment result, brand, store identity, price, or claim when the current brief explicitly permits that element. If a story concept needs one of these and the brief is silent, flag it as a compact confirmation item; do not assume it is allowed.
-
