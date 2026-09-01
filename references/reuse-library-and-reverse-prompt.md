@@ -13,7 +13,7 @@ Create a portable `material-library.json` beside the job records. It must contai
 3. Otherwise write `inferred_template`: subject/SKU lock; one action; camera/framing; setting; lighting; ending; negative constraints; and any observed failure exclusions.
 4. State that `inferred_template` is a tested recreation, not the original prompt.
 
-Generated media may supply style, framing, pacing, product-visible composition, and a previously accepted result state. It never proves a hidden product mechanism or a new marketing claim. Unless the user explicitly asks for the exact prior clip to be reused, it is a learning reference only—not source media for a new final video.
+Generated media may supply style, framing, pacing, product-visible composition, and a previously accepted result state. It never proves a hidden product mechanism or a new marketing claim. It is always a learning reference only—not source media for a new final video. Never insert its frames, video segments, audio, or screenshots into a new deliverable.
 
 ## Batch use
 
