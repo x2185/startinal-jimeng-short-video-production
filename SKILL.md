@@ -87,7 +87,7 @@ Read `references/product-proof-acceptance.md` before accepting a generated clip,
 Read `references/default-visual-baseline.md` before drafting a prompt package; record any baseline override in the job manifest.
 Read `references/director-grade-prompt-package.md` before writing a selected test package, a paid-ready package, or story-led UGC with actors, dialogue, transitions, or cross-location continuity.
 Read `references/continuous-improvement.md` after a tested package or when converting user feedback into a reusable skill improvement.
-Read `references/closed-loop-prompt-optimization.md` when a user asks for self-optimization, candidate comparison, automatic rejection, iterative prompt refinement, or a controlled regeneration batch.
+Read `references/closed-loop-prompt-optimization.md` when a user asks for self-optimization, candidate comparison, automatic rejection, iterative prompt refinement, a controlled regeneration batch, or says that a generated result is unsatisfactory. On dissatisfaction, start a numbered feedback round, preserve accepted work, diagnose the affected layer, record product-local learning after review, and require fresh approval before any additional paid submission.
 Read `references/asset-change-gate.md` whenever reusing a material folder or an earlier product brief.
 Read `references/product-reference-pack.md` when creating a real-product asset layer for generated story scenes.
 Read `references/creative-first-frame-workflow.md` when the product material is visually accurate but creatively restrictive, when the operator asks for new scenes, or when preparing a legacy single-first-frame API package with scene variation.

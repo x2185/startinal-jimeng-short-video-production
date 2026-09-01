@@ -47,6 +47,8 @@ Change the smallest plausible causal layer, not the entire story.
 
 Do not revise more than one causal layer in the same retry unless the original clip has multiple independent hard failures. Keep approved clips immutable and regenerate only the failed clip.
 
+When the feedback is creative rather than technical—for example "too dependent on my material", "no surprise", or "the scene feels repetitive"—do not add more negative constraints. Preserve the product passport and restrictions, then replace the weak story premise, human goal, setting logic, visual hook, or payoff with a fresh creative route. Use the same feedback round to record what the user wants more or less of, so the next 20-variant set is intentionally shifted rather than randomly different.
+
 ## Stop and approval rules
 
 - Prepare the next retry package automatically after diagnosis, but make no paid submission until the user approves its package IDs, candidate count, and any changed paid scope.

@@ -16,10 +16,30 @@ Never store credentials, private customer data, personal data visible in assets,
 ## After a test or user critique
 
 1. Capture the exact observed result, package/clip ID, likely cause, correction, and whether the correction was later accepted.
-2. Keep the correction local to the product until it has either repeated across products or the user explicitly declares it a general preference.
-3. Promote only the smallest supported general rule. Do not convert a product-specific color, prop, story, or failed one-off into a permanent global constraint.
-4. Add the accepted source frames, product identity passport, prompt version, and render manifest to the job folder so the next variation is reproducible.
-5. Before a new job, load only the general rules and the current product brief. Do not copy previous product facts into a new brief.
+2. When the user says a result is unsatisfactory or asks for a change, create a numbered feedback round. Classify the feedback as product fidelity, action, creative idea, scene/actor, pacing/edit, copy/audio, or compliance. Quote the user's actual preference and attach the affected clip/frame when available; do not reduce "not creative enough" to a generic prompt-length change.
+3. Propose the smallest revision plan: preserve accepted clips, change only the affected prompt, reference, scene block, edit beat, copy, or audio layer. If the user asks for a new creative direction, keep the product facts but create fresh routes rather than patching an unwanted premise.
+4. Keep the correction local to the product until it has either repeated across products or the user explicitly declares it a general preference.
+5. Promote only the smallest supported general rule. Do not convert a product-specific color, prop, story, or failed one-off into a permanent global constraint.
+6. Add the accepted source frames, product identity passport, prompt version, and render manifest to the job folder so the next variation is reproducible.
+7. Before a new job, load only the general rules and the current product brief. Do not copy previous product facts into a new brief.
+
+## Feedback-round record
+
+Store each round in the current job's `review/feedback-round-<n>.md` and add its product-specific conclusion to `learning-library/` only after the revised result has been reviewed.
+
+```markdown
+# Feedback round <n> — <job/package ID>
+
+- User feedback: <verbatim concise quote or faithful summary>
+- Affected output: <final / clip ID / timecode / frame>
+- Category: fidelity | action | creative | scene | pacing | copy-audio | compliance
+- Keep unchanged: <accepted parts>
+- Revision hypothesis: <smallest plausible change>
+- Planned change: <prompt / reference / scene block / edit / copy-audio>
+- Paid scope: unchanged | requires approval
+- Result: pending | accepted | rejected
+- Product learning: <only after review>
+```
 
 ## Required retrospective template
 
