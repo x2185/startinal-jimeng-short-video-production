@@ -26,6 +26,7 @@ Reject the clip outright if it has any of these:
 - a required action state is absent, physically impossible, or cannot hand off to the next clip;
 - unsafe use or prohibited target appears;
 - a face, hand, product, readable brand, price, or sensitive detail is materially defective;
+- a static product independently lifts, floats, slides, rotates, opens, or changes pose without a mapped contact or action;
 - its stable frame cannot serve as the planned continuation reference.
 
 ### Soft quality score
@@ -41,6 +42,7 @@ Change the smallest plausible causal layer, not the entire story.
 | mixed colour pair, wrong product, duplicate part | use one clean colour-specific identity reference; remove competing colour descriptions; restate the pairing lock |
 | unclear fine interaction | separate loading/reloading/releasing into different clips; add the exact start and end state; use an action-specific reference |
 | warped hands or product | reduce motion and camera movement; keep the full interaction in frame; shorten the action beat |
+| static product moves by itself | reject as `uncommanded_motion`; lock the object to the named supporting surface, permit camera-only motion, and regenerate only that clip |
 | character, clothing, or room drift | use a reviewed prior handoff frame; repeat only inherited visual locks, not a new character description |
 | unnatural generated speech or lip-sync | retain the actor reaction and replace spoken output with post-production voiceover/subtitles |
 | disconnected or pointless story beat | rewrite that clip's immediate goal, action, and visible result; do not add generic adjectives or unrelated props |

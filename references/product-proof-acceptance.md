@@ -8,12 +8,13 @@ Use sources in this order: verified real action video; consecutive action frames
 
 ## Critical-frame checklist
 
-Inspect the start, action, and end portion of every clip. Pass only when all applicable checks hold:
+Inspect the full clip through dense review frames (at least every 0.5 seconds), plus the start, action, and end portion. Pass only when all applicable checks hold:
 
 - Product silhouette, proportions, colour, finish, text, and included parts match the identity assets.
 - The clip begins in the mapped start state and ends in the mapped end state.
 - Only the mapped action occurs; no invented mechanism, extra product, extra finger, duplicated part, or altered slot/hinge appears.
 - Key structure remains visible, in focus, and at the required scale; hands or props do not hide the proof.
+- For a static-prop or camera-only beat, the product remains continuously supported by the same surface and does not independently lift, float, slide, rotate, open, or change pose. Only the explicitly mapped camera, light, or background motion may occur.
 - The ending is stable enough to hand off or cut.
 
 Any failure rejects the clip. Do not hide it with captions, cropping, a sticker, a transition, or a cut that implies an unsupported result.
@@ -24,4 +25,4 @@ Before delivery, check that captions, CTA, price card, graphics, product-link ra
 
 ## Failure record
 
-For every rejected candidate, record: job and beat ID; source asset names; prompt version; failure category (`identity`, `geometry`, `action`, `hands`, `text`, `continuity`, or `occlusion`); the visible failure; and the next decision (`regenerate`, `ask_for_asset`, `use_real_footage`, or `omit`). Reuse this record to avoid repeating the same failed action class, but do not treat generated output as evidence of the real product.
+For every rejected candidate, record: job and beat ID; source asset names; prompt version; failure category (`identity`, `geometry`, `action`, `hands`, `text`, `continuity`, `occlusion`, or `uncommanded_motion`); the visible failure; and the next decision (`regenerate`, `ask_for_asset`, `use_real_footage`, or `omit`). Reuse this record to avoid repeating the same failed action class, but do not treat generated output as evidence of the real product.

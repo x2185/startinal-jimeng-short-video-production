@@ -279,12 +279,13 @@ def extract_handoff(ffmpeg: str, video: Path, handoff_dir: Path, clip_seconds: i
 def extract_review_frames(ffmpeg: str, video: Path, review_dir: Path, clip_seconds: int) -> list[Path]:
     """Create a compact, deterministic inspection set for automated visual QA.
 
-    These frames do not certify identity or anatomy by themselves.  They make
-    the start, middle, action area, and ending available to Codex's visual
-    review without an operator having to scrub every source clip manually.
+    These frames do not certify identity or anatomy by themselves. They sample
+    the full clip at least every half second so Codex can spot transient defects
+    such as an unattended static product lifting, sliding, or changing pose.
     """
     review_dir.mkdir(parents=True, exist_ok=True)
-    moments = [0.0, 0.5, clip_seconds * 0.35, clip_seconds * 0.55, clip_seconds * 0.75, max(0.0, clip_seconds - 0.6)]
+    moments = [index * 0.5 for index in range(int(clip_seconds * 2))]
+    moments.append(max(0.0, clip_seconds - 0.1))
     outputs: list[Path] = []
     for index, second in enumerate(sorted(set(round(value, 2) for value in moments)), start=1):
         target = review_dir / f"review-{index:02d}-{second:.2f}s.jpg"
