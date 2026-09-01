@@ -16,6 +16,7 @@ import base64
 import datetime as dt
 import hashlib
 import hmac
+import math
 import json
 import os
 import shutil
@@ -297,6 +298,32 @@ def extract_review_frames(ffmpeg: str, video: Path, review_dir: Path, clip_secon
     return outputs
 
 
+def build_review_contact_sheet(ffmpeg: str, review_dir: Path, frame_count: int) -> Path:
+    """Build one compact sheet for whole-clip visual inspection."""
+    columns = 4 if frame_count <= 12 else 5
+    rows = math.ceil(frame_count / columns)
+    target = review_dir / "contact-sheet.jpg"
+    temporary: list[Path] = []
+    try:
+        for index, source in enumerate(sorted(review_dir.glob("review-*.jpg")), start=1):
+            numbered = review_dir / f"sheet-{index:02d}.jpg"
+            shutil.copyfile(source, numbered)
+            temporary.append(numbered)
+        subprocess.run(
+            [
+                ffmpeg, "-hide_banner", "-loglevel", "error", "-y",
+                "-framerate", "1", "-start_number", "1", "-i", str(review_dir / "sheet-%02d.jpg"),
+                "-vf", f"scale=320:-1,tile={columns}x{rows}:padding=4",
+                "-frames:v", "1", "-q:v", "2", str(target),
+            ],
+            check=True,
+        )
+    finally:
+        for frame in temporary:
+            frame.unlink(missing_ok=True)
+    return target
+
+
 def assemble(ffmpeg: str, clips: list[Path], output: Path) -> None:
     output.parent.mkdir(parents=True, exist_ok=True)
     concat = output.with_suffix(".concat.txt")
@@ -445,13 +472,16 @@ def main() -> int:
                 write_json(clip_dir / "result-response.json", polled)
                 download(video_url, video, args.http_timeout, args.download_attempts, args.download_route)
             handoff = extract_handoff(str(ffmpeg), video, clip_dir / "handoff", clip_seconds)
-            review_frames = extract_review_frames(str(ffmpeg), video, clip_dir / "review", clip_seconds)
+            review_dir = clip_dir / "review"
+            review_frames = extract_review_frames(str(ffmpeg), video, review_dir, clip_seconds)
+            contact_sheet = build_review_contact_sheet(str(ffmpeg), review_dir, len(review_frames))
             entry = next(item for item in manifest["clips"] if item.get("clip") == index)
             entry.update({
                 "status": "downloaded_pending_visual_qa",
                 "video": str(video.resolve()),
                 "handoff": str(handoff.resolve()),
                 "review_frames": [str(frame.resolve()) for frame in review_frames],
+                "review_contact_sheet": str(contact_sheet.resolve()),
                 "qa": "pending_codex_visual_review",
             })
             write_json(manifest_path, manifest)
