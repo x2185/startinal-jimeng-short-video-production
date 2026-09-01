@@ -1,6 +1,6 @@
 # Reuse library and reverse prompt
 
-Use this when prior generated clips are user-approved and should inform later API batches.
+Use this when prior generated clips are user-approved successful AI cases and should inform later API batches. Classify them as `historical_ai_success` before they enter this library.
 
 ## Library record
 
