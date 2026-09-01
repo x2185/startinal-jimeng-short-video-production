@@ -24,7 +24,7 @@ For the legacy single-first-frame API, generate several independent **5-second s
 
 Build and deliver the 30-second video in deterministic finishing from accepted blocks: hook → varied context/product proof → approved real action insert only when that specific final needs it → hero ending. The generated blocks are production sources, not the default user delivery. For a multi-final batch, apply `batch-source-allocation.md`: do not make the same supplied real-action clip a default insert across every final, and never loop a clip to fill runtime. Return raw clips only when explicitly requested, or when the final is blocked because a required real-action insert is missing.
 
-Actual payment contact, card insertion/loading, hidden-slot operation, twisting, fastening, assembly, and other exact state transitions are **not** legacy-single-frame scene blocks. If the final video must show one, use an approved same-SKU real-footage insert. Use a compatible multi-reference API only after verifying its current input contract; never use another SKU merely to demonstrate the motion.
+Actual payment contact, card insertion/loading, hidden-slot operation, twisting, fastening, assembly, and other exact state transitions are **not** legacy-single-frame scene blocks. Do not automatically insert available real footage merely because it exists. If the user explicitly requires one of these actions in the final, use the named approved same-SKU real-footage insert or a verified compatible multi-reference route. Otherwise omit the action and build the final from newly generated low-risk scenes. Never use another SKU merely to demonstrate the motion.
 
 ## Reference rule
 

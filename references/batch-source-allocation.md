@@ -9,11 +9,11 @@ For every planned final, record a source allocation row:
 | Final ID | Creative route | Required factual proof | Real-footage insert | New generated scene blocks | Repeat status |
 | --- | --- | --- | --- | --- | --- |
 
-Set `real-footage insert` to `none` unless that final must visibly prove an exact, high-risk action. Product-display, lifestyle, gift, reaction, material/detail, and most promotional variants can use newly generated low-risk blocks only.
+Set `real-footage insert` to `none` by default, even when same-SKU real footage exists in the material folder. Use a real-footage insert only when the user explicitly asks to include that named footage or explicitly requires that exact action to appear in this final. Product-display, lifestyle, gift, reaction, material/detail, and most promotional variants use newly generated low-risk blocks only.
 
 ## No-default-reuse rule
 
-- A supplied real-footage segment is a scarce proof asset, not a default middle section for every final.
+- A supplied real-footage segment is a scarce proof asset, not a default middle section for every final and not an automatic response to a model limitation.
 - Within one batch, use the same real-footage segment in **at most one final by default**. Do not loop it, replay it, or use it as B-roll in another final.
 - If several finals genuinely must show the same exact action, first assign different same-SKU takes, angles, or trims. If none exists, make only the clearly labelled action-proof version show the action and create the remaining variants around supported low-risk proof; ask for more real footage only when the action is mandatory in every requested version.
 - Never use a supplied action clip merely to fill runtime. A final that is short of time needs a new approved scene block, a different detail beat, a new real take, or a shorter approved duration—not a loop.
