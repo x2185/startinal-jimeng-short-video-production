@@ -14,7 +14,7 @@ The legacy `jimeng_i2v_first_v30` endpoint accepts one local image encoded as Ba
 
 ### One-image hard limit
 
-For this endpoint, upload **one target-SKU product identity image only** for each low-risk scene block. Do not upload an original product image and a generated prior-tail frame together: the endpoint cannot accept both. Review the prior tail to decide whether it is usable in the final edit, but keep the next API call anchored to the fixed original identity image. Do not automatically use a generated tail as the next block's sole reference, because a malformed hand or product can then propagate into later clips.
+For this endpoint, upload **one target-SKU identity-locked image only** for each low-risk scene block. This may be either a clean verified product identity image or a visually accepted creative first frame made from that exact product plus an unbranded scene background. Do not upload an original product image and a generated prior-tail frame together: the endpoint cannot accept both. Review the prior tail to decide whether it is usable in the final edit, but keep the next API call anchored to the accepted identity-locked image. Do not automatically use a generated tail as the next block's sole reference, because a malformed hand or product can then propagate into later clips.
 
 An accepted tail frame becomes an additional generation input only after moving to a verified multi-reference route. It is never a substitute for the target product identity reference in the legacy batch route.
 
