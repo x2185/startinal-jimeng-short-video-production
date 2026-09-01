@@ -33,9 +33,9 @@ Use a compact progression such as: lifestyle or story hook → a different conte
 
 Do not turn every block into a tabletop hold, a hand waving the item at the camera, or the same room with new adjectives. A scene is materially different only when its human goal, setting, framing, or visual payoff changes. Keep any generated hand interaction short and simple; do not force fragile product operation into creative blocks.
 
-### Creative brief before prompt writing
+### Optional creative brief scaffold
 
-For every proposed scene block, record these six fields before drafting its generation prompt:
+Use these six fields to strengthen an AI-proposed scene or to diagnose a weak user script. They are a creative scaffold, not a required format: a user-supplied script, storyboard, visual reference, or intentionally abstract concept may use a different structure. Preserve its effective premise, tone, and narrative order whenever the evidence allows.
 
 | Field | Decision required |
 | --- | --- |
@@ -46,7 +46,7 @@ For every proposed scene block, record these six fields before drafting its gene
 | Proof | Which visible product trait is verified in this block, if any? |
 | Cut role | Does it establish, contrast, prove, or pay off the edit? |
 
-Reject a scene brief that cannot answer all six fields, that relies on a vague "lifestyle" background, or that requires the model to invent product use. Product reference images lock the object; creative directions should expand the world around it.
+Use the fields that make the scene clearer. Revise only when a concept relies on a vague "lifestyle" background with no visual idea, or requires the model to invent product use. Product reference images lock the object; creative directions should expand the world around it.
 
 ## Stopping rule
 

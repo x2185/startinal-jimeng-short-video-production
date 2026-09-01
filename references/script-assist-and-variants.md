@@ -20,6 +20,8 @@ Return the audit and optimized base script before presenting paid-ready prompts.
 
 Create 20 complete 30-second variants unless the user requests fewer. One is the optimized base route. Each of the other 19 must change at least two structural dimensions while preserving the validated product facts and required proof. Use dimensions such as hook event, buyer problem, setting, actor goal, proof order, supported action, camera viewpoint, emotional payoff, caption angle, or CTA timing.
 
+Treat the supplied script as the **creative anchor**, not as a rigid output template. Keep its strongest premise, hook, tone, and narrative logic in the base route. Then deliberately expand it across the suitable modes in `story-variant-framework.md`—for example situation story, visual showcase, interaction/reaction, hook/reveal, and gift/lifestyle. Reinterpret the same validated product truth through those modes; do not produce 20 near-copies of the original script or force every variant into the same three-beat plot.
+
 Do not create variants by swapping adjectives, making unsupported claims, or inventing different mechanisms. A variant may use only action and result states that exist in the evidence ledger. If the base script contains an unsupported beat, remove it from every derived variant.
 
 ## Variant output
