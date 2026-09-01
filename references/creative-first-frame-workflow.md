@@ -12,6 +12,18 @@ Use this workflow when raw product photos are accurate but would make single-ref
 
 The single-first-frame endpoint can receive only one image. For a low-risk creative scene block, prepare one **creative first frame** that combines a verified product identity layer with a new unbranded scene background. Use it as the sole API reference.
 
+### GPT scene-first option
+
+For promotional/story-led work, use GPT image generation as the preferred scene-development layer before JiMeng video generation when it is available. GPT creates the **setting and opening composition**; JiMeng creates only the short movement from the approved first frame.
+
+1. Derive each scene image from the current creative route or user script: specify the adult human moment when relevant, location, time/light, visual hook, camera framing, empty product placement, and prohibited content. Do not use a generic background prompt.
+2. Generate one or more 9:16 unbranded scene candidates. The scene image must not invent product structure, product use, payment UI, readable price/brand text, or a state-changing action.
+3. Choose the best candidate for product readability and story clarity, then composite the verified exact-SKU product identity layer into it. GPT-generated imagery is creative context, not product evidence.
+4. Inspect the resulting creative first frame before JiMeng submission. If the product integration is not believable, regenerate or revise the scene image; do not spend JiMeng attempts hoping motion will hide a bad first frame.
+5. Save the approved scene image, composited first frame, scene prompt, and selection reason in the job record. These assets may guide later scene variants, but never prove a different product or action.
+
+For proof-first product display, use GPT scene generation only when it improves readability or the user requests a designed environment. A clean real product image remains the better default for pure detail proof.
+
 1. Create or select a 9:16 scene background with an empty, plausible product surface. It must be unbranded and free of text, prices, POS/payment interfaces, and prohibited people.
 2. Composite the exact target-SKU identity asset into the scene. Preserve source aspect, visible parts, and colour. Do not redraw the product as a stylistic prop.
 3. Inspect the composite before submission. Reject it if it has a rectangular remnant, halo, incorrect perspective, duplicated product, altered part, or implausible contact/shadow. Fix the first frame instead of asking video generation to hide the defect.
