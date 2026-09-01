@@ -21,7 +21,7 @@ After the user supplies or accepts the missing inputs, first complete one valida
 | Play/use | How it is used, played with, or demonstrated | A short description or a real demonstration clip. |
 | Verified features | Always ask separately unless explicitly supplied; do not infer marketing priorities from video | Confirmed selling points, must-show/retain core functions, dimensions, included parts, allowed claims. |
 | Buyer and market | Adult buyer, destination market, language | US English TikTok Shop, etc. |
-| Content intent | Ask when the user has not already supplied a script, storyboard, or clear creative direction | `产品展示` prioritizes product proof and visual detail; `宣传/情节型` prioritizes a creative hook, human moment, and persuasive story. The user may also choose a mixed route. |
+| Content intent | Ask when the user has not already supplied a script, storyboard, or clear creative direction | `产品展示` prioritizes product proof and visual detail; `宣传/情节型` prioritizes a creative hook and lifestyle context; `剧情模式` prioritizes a character goal, setup, turn, reaction, and payoff while retaining one evidence-backed proof beat. The user may also choose a mixed route. |
 | Extra requirements | Creative and delivery choices | People, setting, plot tone, do-not-use items, CTA, captions, music, duration. |
 
 If the user supplies only video, extract visible facts, then explicitly ask which selling points and core functions must be highlighted and preserved, plus restrictions and market. If a fact is unknown, omit it rather than invent it.
