@@ -27,9 +27,11 @@ Avoid fine or state-changing actions such as payment contact, card insertion, tw
 
 ## CLI readiness and authentication
 
+If `dreamina` is unavailable, give the user the official installer link: `https://jimeng.jianying.com/cli`. Do not download, install, or run its remote installer unless the user explicitly approves that action. After installation, run `dreamina -h` to verify that the executable is available.
+
 Check `dreamina -h` and the relevant subcommand `dreamina <command> -h` before use. Treat this live help as authoritative for models, reference limits, duration, resolution, and ratio.
 
-Reuse an existing local login. If login is needed, start the official OAuth Device Flow and give the user the verification link. Complete login only after the user confirms they authorized it. Never store, echo, or commit OAuth tokens, device codes, cookies, or account data.
+Reuse an existing local login. If login is needed, start the official OAuth Device Flow in headless mode, provide the exact `verification_uri` link, and wait for the user to confirm authorization. Then finish the check-login step using the temporary device code and report whether local login succeeded. Never store, echo, or commit OAuth tokens, device codes, cookies, or account data.
 
 Use `multimodal2video` as the default CLI route whenever more than one useful product, detail, motion, or audio reference exists. It accepts repeated local image, video, and audio inputs in one submission. Use `image2video` only when one image is deliberately sufficient. Use `frames2video` only for a genuinely supported first-and-last-frame route. Do not infer CLI capability from a web UI feature.
 

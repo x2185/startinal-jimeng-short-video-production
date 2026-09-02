@@ -2,6 +2,18 @@
 
 Use this reference only for a real Dreamina CLI submission.
 
+## Install and account authorization
+
+On a new computer, first check whether `dreamina -h` runs. If it is not available, direct the operator to the official CLI installer:
+
+```text
+https://jimeng.jianying.com/cli
+```
+
+Installation downloads and runs provider software. Ask for explicit approval immediately before performing that installation; do not silently run a remote installer. After installation, reopen the terminal if needed and confirm `dreamina -h` works.
+
+For account authorization, use the CLI's OAuth Device Flow. In headless mode, it returns a `verification_uri` and a temporary device code. Give the operator the exact `verification_uri` link and ask them to complete authorization in their own browser. Do not submit, upload media, or spend credits while waiting. Only after they reply that authorization is complete, run the CLI check-login command with that temporary device code and report the actual success or failure. Never put authorization links, device codes, tokens, or session data in a shared job record or Git repository.
+
 ## Route selection
 
 Use `multimodal2video` when multiple source types improve product identity or creative control. The command accepts repeated local `--image`, `--video`, and `--audio` inputs in the same submission. Confirm its current help before deciding limits and model support; record the model-specific image, video, audio, and total-input limits in the job record.
