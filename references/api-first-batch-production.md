@@ -24,7 +24,7 @@ For the legacy single-first-frame API, generate six independent **5-second scene
 
 Build and deliver the 30-second video in deterministic finishing from accepted blocks: hook → varied context/product proof → hero ending. The generated blocks are production sources, not the default user delivery. Never loop a clip to fill runtime. Return raw clips only when explicitly requested.
 
-Actual payment contact, card insertion/loading, hidden-slot operation, twisting, fastening, assembly, and other exact state transitions are **not** scene blocks. Omit them from scripts and variants by default. Do not automatically insert available real footage merely because it exists. If the user explicitly requires one named existing same-SKU real clip, use it as a fixed external insert; otherwise rewrite the final from newly generated low-risk scenes. Never use another SKU merely to demonstrate the motion.
+Actual payment contact, card insertion/loading, hidden-slot operation, twisting, fastening, assembly, and other exact state transitions are **not** scene blocks for the legacy single-reference API. Omit or rewrite them there by default; when the user needs the action, ask whether to use the CLI multi-reference route with role-labelled start/contact/end evidence. Never insert source footage into the final or use another SKU to demonstrate the motion.
 
 ## Reference rule
 
@@ -32,7 +32,7 @@ Do not upload another SKU as an image reference to copy its motion. Upload only 
 
 ## Text and payment rule
 
-Generated POS interfaces, receipts, prices, and approval messages are excluded with the underlying fine action. Do not generate or add them in finishing unless the user explicitly requires a compliant named real-footage insert.
+Generated POS interfaces, receipts, prices, and approval messages are excluded with the underlying fine action. Do not generate or add them in finishing; if the story needs a payment moment, keep the product role and reaction clear without relying on fabricated readable UI.
 
 ## Stop conditions
 

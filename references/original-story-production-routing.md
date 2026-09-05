@@ -27,10 +27,10 @@ Classify every beat before writing submission prompts:
 | Route | Suitable beat | Production rule |
 | --- | --- | --- |
 | `generate_low_risk` | establishing environment, adult reaction without product handling, stable product display, camera-only detail, ordinary cut | Generate as independent scene blocks with exact identity locks. |
-| `real_footage_insert` | payment contact, card loading, twisting, assembly, fine hand contact, a required on-screen result | Use only when the user explicitly names an existing, clean, same-SKU real clip for this final; never suggest it by default. |
-| `omit_or_rewrite` | all fine or state-changing actions by default; unsupported mechanism, prohibited claim, missing evidence, unsafe or ambiguous result | Replace with a supported story beat; do not ask any generative route to invent it. |
+| `generate_multireference_action` | one scoped payment contact, card loading, twisting, assembly, or fine hand action with sufficient same-SKU start/contact/end evidence | Use the CLI route, one action per linked clip, and a stable tail-frame handoff. Final output remains fully generated. |
+| `omit_or_rewrite` | unsupported mechanism, prohibited claim, missing evidence, unsafe or ambiguous result | Replace with a supported story beat; do not ask any generative route to invent it. |
 
-Do not use a continuous story prompt to hide a risky interaction. For the legacy 720P API, make intentional cuts between independent generated story blocks. Fine actions remain omitted unless the user explicitly directs use of a named real-footage insert.
+Do not use a continuous story prompt to hide a risky interaction. For the legacy 720P API, make intentional cuts between independent generated story blocks. Route evidence-backed fine actions to a scoped CLI multi-reference test only when the selected route supports it; otherwise omit or rewrite them. Do not use source footage as a final insert.
 
 ## Text, brands, and outcomes
 

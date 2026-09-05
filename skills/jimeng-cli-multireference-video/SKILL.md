@@ -13,7 +13,7 @@ Do not use it for low-risk, low-cost bulk generation where the existing single-r
 
 This skill changes the **generation channel only**. Reuse the established workflow in `$startinal-jimeng-short-video-production` for every non-CLI decision: material scan and classification, SKU isolation, evidence ledger, product identity passport, content-mode selection, script audit, creative-first-frame planning, 20-variant planning, low-risk shot design, prompt-quality review, dense-frame visual QA, final assembly, job workspace, failure records, and continuous improvement.
 
-If that base skill is installed, read the base workflow and its relevant references before planning a real job. Preserve its proven safeguards: prior AI success cases are learning-only, source media is not silently reused, unsupported fine actions are omitted or explicitly routed to named real footage, and only accepted clips enter a final MP4.
+If that base skill is installed, read the base workflow and its relevant references before planning a real job. Preserve its proven safeguards: prior AI success cases are learning-only, source media is not silently reused, unsupported fine actions are strengthened with role-labelled references, split into smaller supported clips, regenerated, or revised in the story, and only accepted generated clips enter a final MP4.
 
 The base Skill normally owns the product brief, storyboard, QA record, and final assembly. This Skill supplies the selected CLI route, reference-pack design, authentication, submission record, async task handling, and downloaded source clips back into that same job workspace. Do not create a competing folder layout, duplicate brief, or separate failure history.
 
@@ -23,7 +23,7 @@ Read and classify product material through the inherited base workflow first. Es
 
 Choose the smallest reference set that proves the product: clean identity images first; detail images only for traits that must remain visible; short motion footage only when it contributes a permitted low-risk motion. Do not supply another SKU, colorway, or product structure merely to borrow its movement.
 
-Avoid fine or state-changing actions such as payment contact, card insertion, twisting, installation, assembly, or precise hand manipulation. Rewrite them as stable product, reaction, environment, or ordinary-cut beats unless the user explicitly requires a named real-footage insert.
+For fine or state-changing actions such as payment contact, card insertion, twisting, installation, assembly, or precise hand manipulation, start with role-labelled identity, start, contact/detail, and end references; scope one action to each linked clip and use its stable tail frame for continuity. If an action drifts, add or improve references, split it further, choose a supported model, regenerate, or revise the story. Do not insert source footage into the finished video.
 
 ## CLI readiness and authentication
 
