@@ -4,7 +4,7 @@ Use this gate after every generated candidate and again after final assembly. It
 
 ## Evidence priority
 
-Use sources in this order: verified real action video; consecutive action frames; multiple sharp, state-specific stills; multiple identity/detail stills; one packshot. A lower-priority source may not authorize a higher-risk action. Separate SKUs, colours, sizes, and included-part sets into different identity passports and never mix their evidence in one prompt or clip.
+Use sources in this order: verified original action-source video; consecutive action frames; multiple sharp, state-specific stills; multiple identity/detail stills; one packshot. A lower-priority source may not authorize a higher-risk action. These sources establish reference evidence only; the final video uses generated clips. Separate SKUs, colours, sizes, and included-part sets into different identity passports and never mix their evidence in one prompt or clip.
 
 ## Critical-frame checklist
 

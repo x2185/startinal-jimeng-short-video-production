@@ -7,7 +7,7 @@ Classify every supplied image, video, and extracted frame before it can be used 
 | `identity` | Clear complete product views, SKU/colour/finish, included parts | Product identity lock and hero reference |
 | `detail` | Sharp close-up of a label, slot, hinge, texture, connector, or other feature | Detail-proof shot and multi-reference structure lock |
 | `action_start` | Exact configuration immediately before one action | Clip start state |
-| `action_process` | Frames/footage that visibly prove an intermediate movement or alignment | Action-specific evidence; prefer real footage for fragile handling |
+| `action_process` | Frames/footage that visibly prove an intermediate movement or alignment | Action-specific reference evidence for fragile handling; never a final insert |
 | `action_end` | Exact configuration immediately after the one action | Clip end state and acceptance check |
 | `configuration_pairing` | Evidence that maps matching parts/variants, such as colour → attachment | Continuity lock |
 | `packaging_or_text` | Packaging, readable claims, model number, logo, instructions | Text/packaging lock only after legal/claim review |
@@ -20,7 +20,7 @@ For every requested video beat, choose assets in this order: `identity` + the re
 
 ## Historical AI-success rule
 
-Identify historical AI-generated success cases from the user's folder labels, task records, filenames, generation metadata, or the user's confirmation. If origin remains unclear, label the file `ambiguous` and ask one focused question rather than treating it as real footage.
+Identify historical AI-generated success cases from the user's folder labels, task records, filenames, generation metadata, or the user's confirmation. If origin remains unclear, label the file `ambiguous` and ask one focused question rather than treating it as original source material.
 
 Keep `historical_ai_success` separate from current-SKU identity/action evidence. Inspect it to extract a labelled learning record—scene type, hook, shot order, framing, pacing, visible product role, prompt provenance, and observed failure exclusions—then use that record to inspire a newly generated current-task variation. Never place its frames, video segments, or audio in a new final video. Never infer that its shown product shape, function, action, text, or claim applies to the current SKU.
 

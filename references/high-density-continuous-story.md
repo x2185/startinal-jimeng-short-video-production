@@ -84,4 +84,4 @@ Accept a candidate only if all of these pass:
 - transitions are motivated and do not teleport people, product, or wardrobe; and
 - hands, faces, labels, and geometry are intact.
 
-If causal flow fails, revise the affected microbeats before another paid attempt. If identity or a fine action fails, reduce that action or route it to verified real footage; do not hide the defect in editing.
+If causal flow fails, revise the affected microbeats before another paid attempt. If identity or a fine action fails, improve the reference roles, reduce or split the action, select a supported model, regenerate, or revise the story; do not hide the defect in editing or replace it with source footage.

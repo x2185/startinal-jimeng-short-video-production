@@ -4,12 +4,12 @@ Make this mapping before generating a storyboard or submission prompt. It preven
 
 ## One action per generated clip
 
-Split a sequence such as “rotate, open, insert card, close” into separate beats. Each generated beat has one verb and a visible, stable end state. If the clip needs close alignment, hidden geometry, contact, or several hand movements, use real footage for that beat.
+Split a sequence such as “rotate, open, insert card, close” into separate beats. Each generated beat has one verb and a visible, stable end state. If the clip needs close alignment, hidden geometry, contact, or several hand movements, provide role-labelled start/contact/end references, make a short linked generated clip, and revise the beat if it cannot pass.
 
 | Beat ID | Start state asset | One permitted action | End state asset | Decision |
 | --- | --- | --- | --- | --- |
 | B01 | `...__compartment-closed...` | Rotate only | `...__side-view...` | Generate only if both states match |
-| B02 | `...__compartment-open...` | Insert card only | `...__card-inserted...` | All-reference, or real footage |
+| B02 | `...__compartment-open...` | Insert card only | `...__card-inserted...` | All-reference; otherwise split, regenerate, or rewrite |
 
 ## Prompt asset mapping
 

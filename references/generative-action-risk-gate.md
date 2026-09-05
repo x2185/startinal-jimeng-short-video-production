@@ -6,7 +6,7 @@ Use this gate when a product video needs an action that changes the product's vi
 
 Use generated video for a product that is already complete: lifestyle story, dialogue, reaction, gifting, carry/use context, stable hero display, or a simple result beat. Keep the product as a clearly visible prop with one low-risk movement such as lifting, setting down, or a small orientation change.
 
-For an operation whose correctness depends on hidden geometry, exact alignment, a slot, a thread, a hinge, a seal, a connector, a card, a button sequence, or close mechanical contact, use the strongest available start/contact/end-state references in a multi-reference CLI test. A source image that merely shows the product cannot prove every intermediate state; switch to supplied real footage when the tested action repeatedly drifts.
+For an operation whose correctness depends on hidden geometry, exact alignment, a slot, a thread, a hinge, a seal, a connector, a card, a button sequence, or close mechanical contact, use the strongest available start/contact/end-state references in a multi-reference CLI test. A source image that merely shows the product cannot prove every intermediate state; when the tested action repeatedly drifts, improve or add role-labelled references, split the action, choose another supported model, regenerate, or revise the story. Source footage may inform references but is never inserted into the finished video.
 
 ## Test before spending
 
@@ -16,7 +16,7 @@ When the action is evidence-backed but potentially fragile, test the lowest-risk
 2. Test one state change only, with no secondary action that competes with the critical contact.
 3. Continue only if the product silhouette, parts, scale, hands, and ending state all pass.
 
-Stop paid retries when the same action class changes product identity more than once. Revise the layer choice instead of lengthening the prompt: use real action footage and let generated scenes cover the surrounding story.
+Stop paid retries when the same action class changes product identity more than once. Revise the layer choice instead of lengthening the prompt: use a smaller reference-backed generated action, a different supported model, or let generated scenes carry a revised surrounding story.
 
 ## Story-first default
 

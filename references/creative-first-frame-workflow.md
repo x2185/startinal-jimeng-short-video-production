@@ -5,7 +5,7 @@ Use this workflow when raw product photos are accurate but would make single-ref
 ## Separation of roles
 
 - **Product evidence** locks the SKU, silhouette, colour, proportions, finish, and permitted claims.
-- **Real footage** proves state-changing actions such as loading, installation, opening, payment, or fastening.
+- **Original action-specific source frames or footage** can prove state-changing states such as loading, installation, opening, payment, or fastening; they are reference evidence only, never final inserts.
 - **Creative scene assets** provide new settings, lighting, mood, story context, and camera starting composition. They never prove a product feature or action.
 
 ## Legacy one-image API route
@@ -36,7 +36,7 @@ For a finished 30-second video, vary at least two scene dimensions across genera
 
 Build creative blocks around a **real, simple human moment**, not a sequence of product poses. Strong blocks normally establish a recognisable setting or actor goal first, then let the product enter as a believable prop. Suitable story engines include leaving home, a short road trip stop, preparing a gift, a desk-break moment, a shared adult reaction, or a home task. The specific setting and goal must fit the product brief; do not copy a prior product's plot, prop, actor, or mechanism.
 
-Use a compact progression such as: lifestyle or story hook → a different context where the product has a natural role → real-action proof insert when required → distinct payoff/hero ending. Across the finished edit, include a deliberate mix of:
+Use a compact progression such as: lifestyle or story hook → a different context where the product has a natural role → a reference-backed generated action candidate when required → distinct payoff/hero ending. Across the finished edit, include a deliberate mix of:
 
 - one establishing or reaction-led shot where the environment carries the hook;
 - one product-in-context shot with a single low-risk movement;
@@ -52,7 +52,7 @@ Use these six fields to strengthen an AI-proposed scene or to diagnose a weak us
 | Field | Decision required |
 | --- | --- |
 | Human moment | What ordinary adult activity, choice, or reaction makes the scene understandable without product narration? |
-| Product role | Is the product a stable prop, a carry item, a reveal, a close proof, or a real-footage insert? |
+| Product role | Is the product a stable prop, a carry item, a reveal, a close proof, or a reference-backed generated action? |
 | One safe movement | One supported movement only: pick up, place, carry, reveal, slight reframe, or atmosphere/camera movement. |
 | Visual hook | The concrete first visual: location, light, framing, object relationship, or reaction. |
 | Proof | Which visible product trait is verified in this block, if any? |

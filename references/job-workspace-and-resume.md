@@ -41,11 +41,11 @@ Place new or replacement files in the existing material folder, then say “素�
 | --- | --- |
 | Added photo/video of the same SKU | Inspect only the new file plus current selected references; update the evidence ledger if it improves a beat. |
 | New SKU, colour, packaging, included part, or mechanism | Create a separate SKU workspace or mark a material conflict; never silently merge it into the old passport. |
-| New real action footage | Map its start/end state and use it as the fixed action insert when approved. |
+| New action source footage | Map its start/end state and use extracted frames only as reference evidence for a scoped generated action when approved. |
 | No source change | Resume from current records; do not re-read the whole material library. |
 
 ## Status rules
 
 `candidate` means downloaded but not usable. `accepted` means it passed the current job's visual checks and may be edited into that job's final. `rejected` means retain it for diagnosis only. `final` contains only completed delivery renders. Historical accepted clips remain learning references unless the user explicitly requests exact reuse.
 
-At completion, write the final path, selected source clips, source real-footage inserts, copy variables, review result, and outstanding risks into `final/render-manifest.json`. This is the handoff record for the next conversation or teammate.
+At completion, write the final path, selected generated clips, reference-evidence sources, copy variables, review result, and outstanding risks into `final/render-manifest.json`. This is the handoff record for the next conversation or teammate.

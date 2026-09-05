@@ -20,11 +20,11 @@ The script uses `rembg` only when installed. Its transparent PNG output is a can
 | --- | --- |
 | Exact product visible in a story/reaction scene | Composite an accepted transparent cutout into a deterministic HyperFrames/FFmpeg scene, or make a staged first-frame reference. |
 | Product is held but no fingers cross its critical shape | Generated scene may use the staged first frame; retain a product-visible acceptance check. |
-| Fingers, shadows, rotation, or occlusion cross a critical feature | Use real footage or a real filmed insert. Do not rely on a cutout to fake interaction. |
+| Fingers, shadows, rotation, or occlusion cross a critical feature | Use original state-specific reference frames plus a multi-reference generated candidate. Do not rely on a cutout to fake interaction; if it remains unstable, revise or omit the interaction. |
 | Installation, insertion, twisting, payment tap, or another precise state change | Use start/contact/end-state references in a multi-reference CLI candidate; reject it if the mechanism, product identity, or contact action drifts. |
 
 Generated scenes may establish people, settings, reactions, dialogue, and atmosphere. Real product assets preserve identity. A product cutout never verifies a mechanism or a claim by itself.
 
 ## Cost rule
 
-Complete reference-pack selection, edge review, storyboard, staged-first-frame check, and prompt audit before paid generation. A paid generation must be a candidate for the final edit, not a disposable test. If a generated clip changes the identity passport, reject that clip and use the real-product layer rather than paying repeated retries for the same fragile action.
+Complete reference-pack selection, edge review, storyboard, staged-first-frame check, and prompt audit before paid generation. A paid generation must be a candidate for the final edit, not a disposable test. If a generated clip changes the identity passport, reject that clip. Improve the reference pack, split or revise the fragile action, or use a supported static product role rather than paying repeated retries.

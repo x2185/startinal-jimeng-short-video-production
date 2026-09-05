@@ -22,4 +22,4 @@ Use the labels shown by the interface and state their roles explicitly. Example:
 
 > Use @image-1 as the exact product identity. Begin exactly as @image-2. Preserve the slot and all visible parts exactly as @image-3. Perform one action only: rotate the product slowly until it matches @image-4. Do not add, remove, bend, recolour, simplify, duplicate, or invent any part; no extra fingers, no unreadable labels, no hidden mechanism.
 
-Reject the output if it does not match both the start and end reference, or if the mechanism, silhouette, scale, labels, components, or hands deform. Use verified real footage instead when the model fails the same action class twice.
+Reject the output if it does not match both the start and end reference, or if the mechanism, silhouette, scale, labels, components, or hands deform. When the model fails the same action class twice, improve the reference set, split the action, choose a supported model, regenerate only after approval, or revise the story; never use source footage as a final insert.
