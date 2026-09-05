@@ -1,7 +1,0 @@
-interface:
-  display_name: "即梦 CLI 多参考视频"
-  short_description: "Generate polished multi-reference product videos."
-  default_prompt: "Use $jimeng-cli-multireference-video to plan a high-quality product video with the official Dreamina CLI."
-
-policy:
-  allow_implicit_invocation: true

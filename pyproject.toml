@@ -1,0 +1,11 @@
+[project]
+name = "startinal-product-motion-forge"
+version = "0.1.0"
+description = "Startinal local-first asset and creative-memory foundation for TikTok product-video production."
+requires-python = ">=3.12"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

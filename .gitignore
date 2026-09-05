@@ -1,4 +1,18 @@
-# Local credentials: never commit these files.
 .env
 .env.*
 !.env.example
+.venv/
+.agents/
+.tools/
+node_modules/
+frontend/node_modules/
+frontend/dist/
+data/
+media/
+materials/
+output/
+tmp/
+tools/
+__pycache__/
+*.py[cod]
+*.log
