@@ -21,7 +21,7 @@ The script uses `rembg` only when installed. Its transparent PNG output is a can
 | Exact product visible in a story/reaction scene | Composite an accepted transparent cutout into a deterministic HyperFrames/FFmpeg scene, or make a staged first-frame reference. |
 | Product is held but no fingers cross its critical shape | Generated scene may use the staged first frame; retain a product-visible acceptance check. |
 | Fingers, shadows, rotation, or occlusion cross a critical feature | Use real footage or a real filmed insert. Do not rely on a cutout to fake interaction. |
-| Installation, insertion, twisting, payment tap, or another precise state change | Use verified real action footage, then cut to generated story/reaction footage. |
+| Installation, insertion, twisting, payment tap, or another precise state change | Use start/contact/end-state references in a multi-reference CLI candidate; reject it if the mechanism, product identity, or contact action drifts. |
 
 Generated scenes may establish people, settings, reactions, dialogue, and atmosphere. Real product assets preserve identity. A product cutout never verifies a mechanism or a claim by itself.
 
