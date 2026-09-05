@@ -1,35 +1,57 @@
 # Director-grade prompt package
 
-Use this mode for any selected test package, paid-ready package, or user request for a story-led UGC result. A creative matrix is an idea-selection artifact only; it is never a submission-ready JiMeng prompt by itself.
+Use this mode for a selected test package, paid-ready package, story-led UGC result, or detailed user script. A creative matrix is not a submission-ready prompt by itself.
+
+## Variant quality floor
+
+A multi-variant request changes the number of packages, not their execution standard. A route name, hook, five-row beat summary, or shared boilerplate is a **creative outline** only. Do not present it as a generation-ready variant.
+
+For every variant the user expects to review as a prompt, repeat and tailor all four required artifacts below. The shared product passport may be referenced by ID, but every package must restate its distinguishing product locks, reference roles, character/setting continuity, exact source route, one tail-frame contract per non-final linked clip, targeted failure risks, and its own acceptance checks. Do not defer those details to “same as above.”
+
+If the user asks for a large ideation set, first present clearly labelled creative outlines. Once the user asks to see prompts, expands a specified subset, or requests submission-ready variants, upgrade each requested item independently; do not silently substitute outline-level work for director-grade work to save tokens.
+
+### Approved benchmark floor
+
+When the user supplies or approves a director-grade example in the current product task, treat it as the minimum operational-detail benchmark for every later director-grade variant. Later packages may change premise, characters, setting, and rhythm, but cannot omit categories the benchmark contains: product/reference roles, named character continuity, fine-grained action choreography, camera/focus/transition direction, stable tail-frame contracts, full submission prompt, targeted negatives, and acceptance gate.
+
+Before presenting a batch, compare every candidate against that benchmark. If a candidate is materially less specific in any category, either expand it to parity or label it `creative-outline`; never call it director-grade, present it as a generation candidate, or submit it.
+
+## User-script granularity rule
+
+When the user provides a successful prior script as a writing reference, copy its **level of operational direction**, not its product-specific plot: divide source clips into 0.5–2-second micro-events as needed; specify what the camera sees first and next; name foreground/background props; direct the actor's hand, eye-line, pause, and reaction; identify the transition action; and state the final held composition. A five-second source clip may contain several micro-events, but must still have one dominant action and a stable tail.
+
+Never reduce a user-provided detailed sequence to one generic row such as “checkout tap and reaction.” Rewrite it as visible steps: approach, pre-contact hold, contact, response cue, first reaction, second reaction, and exit/handoff—only omitting a step when product evidence or model capability makes it infeasible. Preserve the user's detailed script structure unless a material change is explained.
 
 ## Required artifacts
 
-1. **Continuity bible:** exact product identity/passport; all characters with age range, appearance, wardrobe, relationship, demeanor; location; lighting; phone/UGC camera logic; prohibited changes; and accepted prior-frame state when this is a continuation.
-2. **Beat sheet:** time-coded microbeats that fit the clip duration. Each beat states who acts, what changes, and the target composition. Keep spoken lines short enough to plausibly fit the beat; do not force narration through a fine hand action.
-3. **Submission prompt:** a natural English directing prompt that combines the relevant bible and beat sheet. State scene, actors, dialogue, physical action order, camera, transition, product handling, and exact final frame.
-4. **Acceptance gate:** continuity, product/mechanism, hand/face, dialogue timing, safety, and end-frame checks specific to that clip.
+1. **Continuity bible:** product passport; each recurring person's approximate age range, presentation, hairstyle, skin tone, build, wardrobe layers, relationship, baseline temperament, and one or two natural mannerisms; setting, lighting, camera logic, prohibited changes, and prior-frame state when the route uses continuations. Describe only details needed to preserve on-screen identity—never use vague labels such as “same people.”
+2. **Beat sheet:** time-coded beats. Each beat states who acts, their observable micro-reaction, exact action start and end, which hand holds the product and where it sits in frame, product orientation, camera distance/angle/movement, focus target, transition mechanism, and resulting composition.
+3. **Submission prompt:** a concise English directing prompt that combines the relevant continuity and beat details, including the exact final frame.
+4. **Acceptance gate:** product, character, action, dialogue timing, safety, and final-frame checks specific to the route.
+
+## Route rules
+
+### User-supplied script
+
+Preserve the script's premise, order, relationship, tone, must-show moments, and ending. Audit only product facts, duration, safety constraints, and model feasibility. Label every material correction; do not silently exchange the user's story for a default concept.
+
+### One 25-second continuous story
+
+Use a 1–3-second microbeat sheet. Every beat has one dominant action or reaction and a motivated transition: match action, foreground occlusion, doorway/counter pass, follow movement, or an ordinary cut. Keep the macro arc continuous. Do not require exact model-rendered captions, exact text, or frame-perfect edit timing.
+
+### Linked clips
+
+For each continuation, state exactly what it inherits: who holds what, posture, wardrobe, product orientation, location, light, camera direction, and emotional beat. State its own final handoff. Do not merely say “same scene.”
 
 ## Director rules
 
-- A storyline needs a concrete setup, turn/proof, and payoff. Do not replace it with repeated product holds or disconnected actions.
-- If an interaction is mechanically precise, reserve its own short clip and give the action's starting state, contact point, order, hold duration when material, and ending state.
-- Give continuations an explicit inherited state: who holds what, posture, wardrobe, product orientation, location, light, camera direction, and emotional beat. Do not merely say “same scene.”
-- A visible transition must have a mechanism: match action, product/prop passing close to camera, a foreground occlusion, a door/counter movement, or an ordinary cut. Do not ask the model to teleport people or products.
-- Use exact scene detail that supports the story (ordinary home items, a neighborhood store, a simple counter); avoid generic adjectives and unnecessary luxury/cinematic language.
-- Keep negative constraints targeted. Repeat the product lock and the one or two failure risks most likely for that clip rather than pasting an indiscriminate blacklist.
-
-## 5-second conversion
-
-When the source concept is 14–16 seconds but the generation mode supports 5-second clips, preserve the story by splitting it into three linked clips:
-
-| Clip | Role | Required ending |
-| --- | --- | --- |
-| 1 | setup + first reaction | stable character/product/setting handoff |
-| 2 | decisive proof/action | completed physical result, held long enough to read |
-| 3 | reaction/payoff | stable hero or character outcome frame |
-
-For a 30-second package, use six linked 5-second clips. Do not cram multiple location changes, fine actions, and several dialogue exchanges into one clip.
+- A story needs a concrete setup, turn or proof, and payoff; do not replace it with disconnected product holds.
+- Give mechanically precise interaction its own evidence-backed beat. Choreograph the action as a visible start → contact/motion → resolved end state; name the acting hand, grip, product orientation, and focus target when they matter. Use start/contact/end-state references and simplify or change the route when the model drifts.
+- Describe reactions through small observable changes—an eyebrow lift, restrained smile, glance from object to person, shoulder relaxation, step forward—rather than generic “surprised” or “excited.” Keep dialogue optional; it must not substitute for visible action.
+- Specify a meaningful camera choice for every beat: framing, angle, movement, focus target, and transition/exit action. “Dynamic camera” is not direction.
+- Keep scene detail specific enough to support the story, without unnecessary luxury or cinematic language.
+- Keep negative constraints targeted: repeat the product lock and one or two likely failure risks rather than pasting a generic blacklist.
 
 ## Naming and approval
 
-Label a package `creative-outline` until it contains all four required artifacts. Only label it `director-grade / submission-ready` after the prompt-quality gate passes and the user approves the package ID for paid submission.
+Label a package `creative-outline` until it contains all required artifacts. Label it `director-grade / submission-ready` only after the prompt-quality gate passes. Paid submission still requires explicit user approval of the displayed package ID.

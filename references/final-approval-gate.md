@@ -1,23 +1,24 @@
 # Final approval gate
 
-Run this after the user selects one or more IDs from the 20-outline matrix and their six-clip prompts have been generated and reviewed, immediately before paid JiMeng generation.
+Run this immediately before any paid JiMeng generation, after the selected route has been automatically reviewed.
 
 ## Present for approval
 
-- A compact index of the selected 30-second outlines, each with six 5-second scene-block roles.
-- The six final prompts for each selected package, not drafts.
-- Every attached reference asset and its role: fixed product identity or approved scene-first frame.
-- The product identity passport: every must-match trait, its supporting source asset, and the explicit no-substitution rule used in all prompts.
-- Verified claims that will appear, plus any disclosed assumptions.
-- Feature-preservation ledger: every requested core function marked retained, reworded, or blocked, with the exact reason for any non-retained item.
-- Any remaining material risk: scene/product mismatch, uncertain prop, continuity risk, or claim ambiguity.
+Match the review package to the route:
+
+- **User-supplied script:** show the preserved base package, every labelled feasibility/fact correction, and only the requested variants.
+- **Standard variants:** show the requested count of package IDs, their plots and final prompts. Use 20 only when the user did not specify a count.
+- **25-second continuous story:** show one package ID, its 1–3-second microbeat table, complete CLI prompt, reference roles, final frame, and acceptance gate.
+- **Linked clips:** show each linked prompt and its handoff state. Do not request handoff approval for one continuous clip.
+
+For every route, include the identity passport and no-substitution rule, every reference asset and its role, verified claims and assumptions, the feature-preservation ledger, material risks, command family, model, duration, resolution, ratio, output count, and known or unknown credit impact.
 
 ## Approval rule
 
-Ask a direct question such as: “Which package IDs do you approve for JiMeng generation?” A paid request is authorized only after a clear affirmative response naming one or more package IDs or unmistakably referring to the displayed IDs. Silence, a general desire to make videos, or approval of a previous version does not authorize submission.
+Ask a direct question such as: “Which package IDs do you approve for JiMeng generation?” A paid request is authorized only after a clear affirmative response naming one or more displayed IDs or unmistakably referring to the displayed route. Silence, a general desire to make videos, or approval of a previous version does not authorize submission.
 
-When the reviewer identifies a mismatch, revise the story, prompts, or assets and show the changed package again. Do not submit the earlier version. A confirmed core feature may be removed only when the reviewer explicitly asks to remove it or when a non-negotiable policy/legal restriction is explained in the review package. Do not ask for route choice or draft review before this final gate.
+When the reviewer identifies a mismatch, revise the affected story, prompt, or asset and show the changed package again. Do not submit the earlier version. A confirmed core feature may be removed only when the reviewer explicitly asks to remove it or when a non-negotiable policy/legal restriction is explained in the review package.
 
-## After each generated clip
+## After generation
 
-Inspect dense review frames and the contact sheet. In the legacy scene-block route, make intentional cuts; do not submit a generated handoff frame as continuation input.
+For linked clips, use the reference-frame gate before each continuation. For a continuous story, inspect dense review frames across the entire candidate for product identity, causal transitions, actor continuity, hands, faces, labels, and final-frame stability. Ask the user only when no candidate passes or a selected result materially changes the intended product or story.

@@ -6,7 +6,7 @@ Use this baseline for TikTok Shop product generation unless the supplied materia
 
 - Format: vertical 9:16, realistic smartphone UGC product footage; no simulated commercial logo, watermark, or readable UI.
 - Light: bright, soft diffused daylight from one 45-degree side; clean neutral fill; soft natural shadows; accurate white balance. Preserve material-specific detail: controlled edge highlights for translucent/glossy objects, texture visibility for matte objects, and no blown highlights.
-- Setting: choose a tidy, plausible, unbranded environment that supports the selected content intent. For product display, use a controlled surface/room that makes detail easy to read. For promotional or story-led work, prefer a specific real-life context, human moment, or visual hook over a generic tabletop; the setting must still leave the product legible and must not imply an unverified use. Use the supplied setting when it is clear and appropriate.
+- Setting: tidy, plausible, unbranded everyday surface or room with a shallow, non-distracting background. Use the supplied setting when it is clear and appropriate; otherwise prefer a neutral light-wood tabletop or a simple home counter.
 - Color: true-to-reference product colors, moderate saturation, no cinematic color cast, no artificial glow, and no unrelated accent color that could be mistaken for a product part.
 
 ## Camera and composition
@@ -30,7 +30,3 @@ Avoid stacking generic adjectives such as “high quality,” “amazing,” “
 ## Override rule
 
 Change this baseline when the product needs a different evidence-appropriate look—for example: a bright outdoor demonstration, a bathroom routine, a kitchen workflow, a studio macro texture inspection, or authentic supplied UGC footage. Record the override and its reason in the job/render manifest.
-
-## Creative-default rule
-
-When the user selects promotional/story-led work or does not constrain the creative direction, raise creative variety by default: make the setting, visual hook, and payoff materially different across scene blocks while maintaining the product identity lock. When available, create and review GPT scene images first, then use the approved composited first frames for JiMeng's low-risk motion. Do not turn this into a fixed plot or require actors when a visual concept is stronger. Ask for the content intent before choosing between proof-first product display and story-first promotion unless the user has already supplied a script, storyboard, or unambiguous direction.
